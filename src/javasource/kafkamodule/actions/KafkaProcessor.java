@@ -12,10 +12,10 @@ import com.mendix.systemwideinterfaces.core.IContext;
 import com.mendix.systemwideinterfaces.core.IMendixObject;
 
 public class KafkaProcessor extends KafkaConfigurable {
-	private KafkaStreams streams; 
-	private String fromTopic;
-	private String toTopic;
-	private String onProcessMicroflow;
+	protected KafkaStreams streams; 
+	protected String fromTopic;
+	protected String toTopic;
+	protected String onProcessMicroflow;
 	
 	public KafkaProcessor(IMendixObject config, IContext context, String fromTopic, String toTopic, String onProcessMicroflow) {
 		super(config, context);
@@ -29,10 +29,10 @@ public class KafkaProcessor extends KafkaConfigurable {
 	
 	public void start() throws CoreException {
 		StreamsConfig config = new StreamsConfig(props);
-		KStreamBuilder builder = new KStreamBuilder();
+		StreamsBuilder builder = new StreamsBuilder();
 		KStream<Object, Object> stream = builder.stream(fromTopic);
 		stream.flatMap((key, value) -> apply(key.toString(), value.toString(), onProcessMicroflow)).to(toTopic);
-		streams = new KafkaStreams(builder, config);
+		streams = new KafkaStreams(builder.build(), config);
 		streams.start();
 	}
 	

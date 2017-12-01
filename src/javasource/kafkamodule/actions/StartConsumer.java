@@ -9,7 +9,6 @@
 
 package kafkamodule.actions;
 
-import java.util.*;
 import com.mendix.systemwideinterfaces.core.IContext;
 import com.mendix.webui.CustomJavaAction;
 import com.mendix.systemwideinterfaces.core.IMendixObject;
