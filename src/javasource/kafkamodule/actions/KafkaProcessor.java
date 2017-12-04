@@ -31,7 +31,10 @@ public class KafkaProcessor extends KafkaConfigurable {
 		StreamsConfig config = new StreamsConfig(props);
 		StreamsBuilder builder = new StreamsBuilder();
 		KStream<Object, Object> stream = builder.stream(fromTopic);
-		stream.flatMap((key, value) -> apply(key.toString(), value.toString(), onProcessMicroflow)).to(toTopic);
+		stream.flatMap((key, value) -> apply(key.toString(), value.toString(), onProcessMicroflow));
+		if (toTopic != null && !toTopic.isEmpty()) {
+			stream.to(toTopic);
+		}
 		streams = new KafkaStreams(builder.build(), config);
 		streams.start();
 	}
@@ -50,6 +53,10 @@ public class KafkaProcessor extends KafkaConfigurable {
 		catch (CoreException ex)
 		{
 			logger.error("An error occurred while processing from topic " + fromTopic);
+			return result;
+		}
+
+		if (toTopic != null && !toTopic.isEmpty()) {
 			return result;
 		}
 		

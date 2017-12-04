@@ -35,7 +35,14 @@ public class Send extends CustomJavaAction<java.lang.Boolean>
 		// BEGIN USER CODE
 		KafkaProducerWrapper producer = KafkaProducerRepository.get(ProducerName);
 
-		producer.send(new ProducerRecord<String, String>(Topic, Key, Value));
+		ProducerRecord<String, String> record;
+		if (Key == null || Key.isEmpty()) {
+			record = new ProducerRecord<String, String>(Topic, Value);
+		} else {
+			record = new ProducerRecord<String, String>(Topic, Key, Value);
+		}
+		
+		producer.send(record);
 		
 		return true;
 		// END USER CODE
