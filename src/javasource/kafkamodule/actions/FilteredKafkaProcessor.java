@@ -1,13 +1,12 @@
 package kafkamodule.actions;
 
-import org.apache.kafka.common.serialization.*;
+import java.io.IOException;
+
 import org.apache.kafka.streams.*;
 import org.apache.kafka.streams.kstream.*;
 
-import org.apache.kafka.connect.json.JsonDeserializer;
-import org.apache.kafka.connect.json.JsonSerializer;
-
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mendix.core.CoreException;
 import com.mendix.systemwideinterfaces.core.IContext;
 import com.mendix.systemwideinterfaces.core.IMendixObject;
@@ -22,28 +21,37 @@ public class FilteredKafkaProcessor extends KafkaProcessor {
 		this.filterValue = filterValue;
 	}
 
-	private final Serializer<JsonNode> jsonSerializer = new JsonSerializer();
-	private final Deserializer<JsonNode> jsonDeserializer = new JsonDeserializer();
+	private final ObjectMapper mapper = new ObjectMapper();
 
-	private final Serde<String> stringSerde = Serdes.String();
-	private final Serde<JsonNode> jsonSerde = Serdes.serdeFrom(jsonSerializer, jsonDeserializer);
-	
 	@Override
 	public void start() throws CoreException {
 		StreamsConfig config = new StreamsConfig(props);
 		StreamsBuilder builder = new StreamsBuilder();
 
-		KStream<String, JsonNode> stream = builder.stream(
-			fromTopic,
-			Consumed.with(stringSerde, jsonSerde));
+		KStream<String, String> stream = builder.stream(fromTopic);
 		
 		stream
-			.filter((key, value) -> value.at(jsonPointer).toString() == filterValue)
-			.flatMap((key, value) -> apply(key, value.toString(), onProcessMicroflow));
+			.filter((key, value) -> filter(key, value))
+			.flatMap((key, value) -> apply(key, value, onProcessMicroflow));
 		if (toTopic != null && !toTopic.isEmpty()) {
 			stream.to(toTopic);
 		}
 		streams = new KafkaStreams(builder.build(), config);
 		streams.start();
+	}
+	
+	private Boolean filter(String key, String value) {
+		JsonNode node;
+		
+		try
+		{
+			node = mapper.readTree(value);
+		}
+		catch (IOException ex)
+		{
+			return false;
+		}
+		
+		return node.at(jsonPointer).toString().equals(filterValue);
 	}
 }
