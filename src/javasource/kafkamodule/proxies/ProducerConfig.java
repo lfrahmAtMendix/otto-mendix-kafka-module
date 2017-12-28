@@ -4,6 +4,9 @@
 
 package kafkamodule.proxies;
 
+/**
+ * The configuration of a producer. See http://kafka.apache.org/documentation.html#producerconfigs for all configuration options.
+ */
 public class ProducerConfig extends kafkamodule.proxies.KafkaConfig
 {
 	/**

@@ -13,6 +13,9 @@ import com.mendix.systemwideinterfaces.core.IContext;
 import com.mendix.webui.CustomJavaAction;
 import com.mendix.systemwideinterfaces.core.IMendixObject;
 
+/**
+ * This action will always return true.
+ */
 public class StartConsumer extends CustomJavaAction<java.lang.Boolean>
 {
 	private java.lang.String ConsumerName;

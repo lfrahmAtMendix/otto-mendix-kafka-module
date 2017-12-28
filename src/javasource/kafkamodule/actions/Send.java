@@ -13,6 +13,13 @@ import com.mendix.systemwideinterfaces.core.IContext;
 import com.mendix.webui.CustomJavaAction;
 import org.apache.kafka.clients.producer.*;
 
+/**
+ * Sends ('produces') a message in a Kafka topic.
+ * 
+ * Before using this action, make sure a producer with this name has been stared using the StartProducer action.
+ * 
+ * This action will always return true.
+ */
 public class Send extends CustomJavaAction<java.lang.Boolean>
 {
 	private java.lang.String ProducerName;
@@ -35,7 +42,14 @@ public class Send extends CustomJavaAction<java.lang.Boolean>
 		// BEGIN USER CODE
 		KafkaProducerWrapper producer = KafkaProducerRepository.get(ProducerName);
 
-		producer.send(new ProducerRecord<String, String>(Topic, Key, Value));
+		ProducerRecord<String, String> record;
+		if (Key == null || Key.isEmpty()) {
+			record = new ProducerRecord<String, String>(Topic, Value);
+		} else {
+			record = new ProducerRecord<String, String>(Topic, Key, Value);
+		}
+		
+		producer.send(record);
 		
 		return true;
 		// END USER CODE

@@ -40,6 +40,7 @@ public class UserActionsRegistrar implements EventHandler
 			Core.initialize(component, integration);   
 			component.actionRegistry().registerUserAction(kafkamodule.actions.Send.class);
 			component.actionRegistry().registerUserAction(kafkamodule.actions.StartConsumer.class);
+			component.actionRegistry().registerUserAction(kafkamodule.actions.StartFilteredProcessor.class);
 			component.actionRegistry().registerUserAction(kafkamodule.actions.StartProcessor.class);
 			component.actionRegistry().registerUserAction(kafkamodule.actions.StartProducer.class);
 			component.actionRegistry().registerUserAction(kafkamodule.actions.StopAll.class);

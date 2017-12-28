@@ -12,6 +12,11 @@ package kafkamodule.actions;
 import com.mendix.systemwideinterfaces.core.IContext;
 import com.mendix.webui.CustomJavaAction;
 
+/**
+ * Stops a certain Kafka processor
+ * 
+ * This action will always return true.
+ */
 public class StopProcessor extends CustomJavaAction<java.lang.Boolean>
 {
 	private java.lang.String ProcessorName;

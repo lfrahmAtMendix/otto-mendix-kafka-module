@@ -14,25 +14,31 @@ import com.mendix.webui.CustomJavaAction;
 import com.mendix.systemwideinterfaces.core.IMendixObject;
 
 /**
- * This action will listen to a topic, and start a microflow for each message in that topic.
+ * This action will listen to a topic, and start a microflow for each JSON message in that topic that passes a filter.
+ * 
+ * The filter is specified as the value at a certain place inside the message.
  * 
  * This action will always return true.
  */
-public class StartProcessor extends CustomJavaAction<java.lang.Boolean>
+public class StartFilteredProcessor extends CustomJavaAction<java.lang.Boolean>
 {
 	private java.lang.String ProcessorName;
 	private IMendixObject __Config;
 	private kafkamodule.proxies.StreamsConfig Config;
 	private java.lang.String FromTopic;
+	private java.lang.String JsonPointer;
+	private java.lang.String FilterValue;
 	private java.lang.String ToTopic;
 	private java.lang.String OnProcess;
 
-	public StartProcessor(IContext context, java.lang.String ProcessorName, IMendixObject Config, java.lang.String FromTopic, java.lang.String ToTopic, java.lang.String OnProcess)
+	public StartFilteredProcessor(IContext context, java.lang.String ProcessorName, IMendixObject Config, java.lang.String FromTopic, java.lang.String JsonPointer, java.lang.String FilterValue, java.lang.String ToTopic, java.lang.String OnProcess)
 	{
 		super(context);
 		this.ProcessorName = ProcessorName;
 		this.__Config = Config;
 		this.FromTopic = FromTopic;
+		this.JsonPointer = JsonPointer;
+		this.FilterValue = FilterValue;
 		this.ToTopic = ToTopic;
 		this.OnProcess = OnProcess;
 	}
@@ -43,7 +49,7 @@ public class StartProcessor extends CustomJavaAction<java.lang.Boolean>
 		this.Config = __Config == null ? null : kafkamodule.proxies.StreamsConfig.initialize(getContext(), __Config);
 
 		// BEGIN USER CODE
-		KafkaProcessor processor = new KafkaProcessor(__Config, getContext(), FromTopic, ToTopic, OnProcess); 
+		KafkaProcessor processor = new FilteredKafkaProcessor(__Config, getContext(), FromTopic, JsonPointer, FilterValue, ToTopic, OnProcess); 
 		processor.start();
 		KafkaProcessorRepository.put(ProcessorName, processor);
 		
@@ -57,7 +63,7 @@ public class StartProcessor extends CustomJavaAction<java.lang.Boolean>
 	@Override
 	public java.lang.String toString()
 	{
-		return "StartProcessor";
+		return "StartFilteredProcessor";
 	}
 
 	// BEGIN EXTRA CODE
