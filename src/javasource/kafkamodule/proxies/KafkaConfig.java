@@ -4,6 +4,9 @@
 
 package kafkamodule.proxies;
 
+/**
+ * General Kafka configuration options
+ */
 public class KafkaConfig
 {
 	private final com.mendix.systemwideinterfaces.core.IMendixObject kafkaConfigMendixObject;

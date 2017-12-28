@@ -4,6 +4,9 @@
 
 package kafkamodule.proxies;
 
+/**
+ * The configuration of a processor. See http://kafka.apache.org/documentation.html#streamsconfigs for all configuration options.
+ */
 public class StreamsConfig extends kafkamodule.proxies.KafkaConfig
 {
 	/**

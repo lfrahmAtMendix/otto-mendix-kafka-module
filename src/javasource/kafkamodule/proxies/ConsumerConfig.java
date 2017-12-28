@@ -4,6 +4,9 @@
 
 package kafkamodule.proxies;
 
+/**
+ * The configuration of a consumer. See http://kafka.apache.org/documentation.html#newconsumerconfigs for all configuration options.
+ */
 public class ConsumerConfig extends kafkamodule.proxies.KafkaConfig
 {
 	/**

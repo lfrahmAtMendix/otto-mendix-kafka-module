@@ -12,6 +12,11 @@ package kafkamodule.actions;
 import com.mendix.systemwideinterfaces.core.IContext;
 import com.mendix.webui.CustomJavaAction;
 
+/**
+ * Stops a certain Kafka producer.
+ * 
+ * This action will always return true.
+ */
 public class StopProducer extends CustomJavaAction<java.lang.Boolean>
 {
 	private java.lang.String ProducerName;

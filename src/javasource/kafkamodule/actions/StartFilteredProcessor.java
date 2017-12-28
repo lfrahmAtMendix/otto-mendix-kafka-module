@@ -13,6 +13,13 @@ import com.mendix.systemwideinterfaces.core.IContext;
 import com.mendix.webui.CustomJavaAction;
 import com.mendix.systemwideinterfaces.core.IMendixObject;
 
+/**
+ * This action will listen to a topic, and start a microflow for each JSON message in that topic that passes a filter.
+ * 
+ * The filter is specified as the value at a certain place inside the message.
+ * 
+ * This action will always return true.
+ */
 public class StartFilteredProcessor extends CustomJavaAction<java.lang.Boolean>
 {
 	private java.lang.String ProcessorName;

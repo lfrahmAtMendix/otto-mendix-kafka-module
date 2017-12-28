@@ -13,6 +13,11 @@ import com.mendix.systemwideinterfaces.core.IContext;
 import com.mendix.webui.CustomJavaAction;
 import com.mendix.systemwideinterfaces.core.IMendixObject;
 
+/**
+ * This action will listen to a topic, and start a microflow for each message in that topic.
+ * 
+ * This action will always return true.
+ */
 public class StartProcessor extends CustomJavaAction<java.lang.Boolean>
 {
 	private java.lang.String ProcessorName;

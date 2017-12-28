@@ -14,6 +14,9 @@ import com.mendix.systemwideinterfaces.core.IContext;
 public class Microflows
 {
 	// These are the microflows for the KafkaModule module
+	/**
+	 * Stops all active Kafka connections. Use this as (part of) your 'Before shutdown' microflow.
+	 */
 	public static void shutdown(IContext context)
 	{
 		try

@@ -12,6 +12,11 @@ package kafkamodule.actions;
 import com.mendix.systemwideinterfaces.core.IContext;
 import com.mendix.webui.CustomJavaAction;
 
+/**
+ * Stops all Kafka Consumers, Producers and Processors.
+ * 
+ * This action will always return true.
+ */
 public class StopAll extends CustomJavaAction<java.lang.Boolean>
 {
 	public StopAll(IContext context)

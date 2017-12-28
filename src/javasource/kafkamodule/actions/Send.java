@@ -13,6 +13,13 @@ import com.mendix.systemwideinterfaces.core.IContext;
 import com.mendix.webui.CustomJavaAction;
 import org.apache.kafka.clients.producer.*;
 
+/**
+ * Sends ('produces') a message in a Kafka topic.
+ * 
+ * Before using this action, make sure a producer with this name has been stared using the StartProducer action.
+ * 
+ * This action will always return true.
+ */
 public class Send extends CustomJavaAction<java.lang.Boolean>
 {
 	private java.lang.String ProducerName;

@@ -13,6 +13,13 @@ import com.mendix.systemwideinterfaces.core.IContext;
 import com.mendix.webui.CustomJavaAction;
 import com.mendix.systemwideinterfaces.core.IMendixObject;
 
+/**
+ * Starts a Kafka producer.
+ * 
+ * After the producer has started, you can send ('produce') messages with the Send action.
+ * 
+ * This action will always return true.
+ */
 public class StartProducer extends CustomJavaAction<java.lang.Boolean>
 {
 	private java.lang.String ProducerName;

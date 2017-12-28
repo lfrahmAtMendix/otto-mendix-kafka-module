@@ -10,16 +10,185 @@ import com.mendix.core.Core;
 import com.mendix.core.CoreException;
 import com.mendix.systemwideinterfaces.MendixRuntimeException;
 import com.mendix.systemwideinterfaces.core.IContext;
+import com.mendix.systemwideinterfaces.core.IMendixObject;
 
 public class Microflows
 {
 	// These are the microflows for the Demo module
+	public static java.lang.String celsiusToFahrenheit(IContext context, java.lang.String _key, java.lang.String _value)
+	{
+		try
+		{
+			Map<java.lang.String, Object> params = new HashMap<java.lang.String, Object>();
+			params.put("key", _key);
+			params.put("value", _value);
+			return (java.lang.String)Core.execute(context, "Demo.CelsiusToFahrenheit", params);
+		}
+		catch (CoreException e)
+		{
+			throw new MendixRuntimeException(e);
+		}
+	}
+	public static void commitTemperature(IContext context, demo.proxies.Temperature _temperature)
+	{
+		try
+		{
+			Map<java.lang.String, Object> params = new HashMap<java.lang.String, Object>();
+			params.put("Temperature", _temperature == null ? null : _temperature.getMendixObject());
+			Core.execute(context, "Demo.CommitTemperature", params);
+		}
+		catch (CoreException e)
+		{
+			throw new MendixRuntimeException(e);
+		}
+	}
+	public static demo.proxies.Chart createChart(IContext context)
+	{
+		try
+		{
+			Map<java.lang.String, Object> params = new HashMap<java.lang.String, Object>();
+			IMendixObject result = (IMendixObject)Core.execute(context, "Demo.CreateChart", params);
+			return result == null ? null : demo.proxies.Chart.initialize(context, result);
+		}
+		catch (CoreException e)
+		{
+			throw new MendixRuntimeException(e);
+		}
+	}
+	public static demo.proxies.Temperature createTemperature(IContext context)
+	{
+		try
+		{
+			Map<java.lang.String, Object> params = new HashMap<java.lang.String, Object>();
+			IMendixObject result = (IMendixObject)Core.execute(context, "Demo.CreateTemperature", params);
+			return result == null ? null : demo.proxies.Temperature.initialize(context, result);
+		}
+		catch (CoreException e)
+		{
+			throw new MendixRuntimeException(e);
+		}
+	}
+	public static java.lang.Long dateTimeToInt(IContext context, demo.proxies.ReportedTemperature _reportedTemperature)
+	{
+		try
+		{
+			Map<java.lang.String, Object> params = new HashMap<java.lang.String, Object>();
+			params.put("ReportedTemperature", _reportedTemperature == null ? null : _reportedTemperature.getMendixObject());
+			return (java.lang.Long)Core.execute(context, "Demo.DateTimeToInt", params);
+		}
+		catch (CoreException e)
+		{
+			throw new MendixRuntimeException(e);
+		}
+	}
+	public static demo.proxies.Chart fillChart(IContext context, demo.proxies.Chart _chart)
+	{
+		try
+		{
+			Map<java.lang.String, Object> params = new HashMap<java.lang.String, Object>();
+			params.put("chart", _chart == null ? null : _chart.getMendixObject());
+			IMendixObject result = (IMendixObject)Core.execute(context, "Demo.FillChart", params);
+			return result == null ? null : demo.proxies.Chart.initialize(context, result);
+		}
+		catch (CoreException e)
+		{
+			throw new MendixRuntimeException(e);
+		}
+	}
+	public static void recordTemperature(IContext context, java.lang.Long _offset, java.lang.String _key, java.lang.String _value)
+	{
+		try
+		{
+			Map<java.lang.String, Object> params = new HashMap<java.lang.String, Object>();
+			params.put("offset", _offset);
+			params.put("key", _key);
+			params.put("value", _value);
+			Core.execute(context, "Demo.RecordTemperature", params);
+		}
+		catch (CoreException e)
+		{
+			throw new MendixRuntimeException(e);
+		}
+	}
+	public static java.lang.String showTime(IContext context, demo.proxies.ReportedTemperature _reportedTemperature)
+	{
+		try
+		{
+			Map<java.lang.String, Object> params = new HashMap<java.lang.String, Object>();
+			params.put("ReportedTemperature", _reportedTemperature == null ? null : _reportedTemperature.getMendixObject());
+			return (java.lang.String)Core.execute(context, "Demo.ShowTime", params);
+		}
+		catch (CoreException e)
+		{
+			throw new MendixRuntimeException(e);
+		}
+	}
+	public static void startProcessor(IContext context)
+	{
+		try
+		{
+			Map<java.lang.String, Object> params = new HashMap<java.lang.String, Object>();
+			Core.execute(context, "Demo.StartProcessor", params);
+		}
+		catch (CoreException e)
+		{
+			throw new MendixRuntimeException(e);
+		}
+	}
+	public static boolean startProducer(IContext context)
+	{
+		try
+		{
+			Map<java.lang.String, Object> params = new HashMap<java.lang.String, Object>();
+			return (java.lang.Boolean)Core.execute(context, "Demo.StartProducer", params);
+		}
+		catch (CoreException e)
+		{
+			throw new MendixRuntimeException(e);
+		}
+	}
+	public static void startRecording(IContext context)
+	{
+		try
+		{
+			Map<java.lang.String, Object> params = new HashMap<java.lang.String, Object>();
+			Core.execute(context, "Demo.StartRecording", params);
+		}
+		catch (CoreException e)
+		{
+			throw new MendixRuntimeException(e);
+		}
+	}
 	public static boolean startup(IContext context)
 	{
 		try
 		{
 			Map<java.lang.String, Object> params = new HashMap<java.lang.String, Object>();
 			return (java.lang.Boolean)Core.execute(context, "Demo.Startup", params);
+		}
+		catch (CoreException e)
+		{
+			throw new MendixRuntimeException(e);
+		}
+	}
+	public static void stopProcessor(IContext context)
+	{
+		try
+		{
+			Map<java.lang.String, Object> params = new HashMap<java.lang.String, Object>();
+			Core.execute(context, "Demo.StopProcessor", params);
+		}
+		catch (CoreException e)
+		{
+			throw new MendixRuntimeException(e);
+		}
+	}
+	public static void stopRecording(IContext context)
+	{
+		try
+		{
+			Map<java.lang.String, Object> params = new HashMap<java.lang.String, Object>();
+			Core.execute(context, "Demo.StopRecording", params);
 		}
 		catch (CoreException e)
 		{
