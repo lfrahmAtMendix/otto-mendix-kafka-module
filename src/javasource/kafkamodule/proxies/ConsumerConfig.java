@@ -7,8 +7,12 @@ package kafkamodule.proxies;
 /**
  * The configuration of a consumer. See http://kafka.apache.org/documentation.html#newconsumerconfigs for all configuration options.
  */
-public class ConsumerConfig extends kafkamodule.proxies.KafkaConfig
+public class ConsumerConfig
 {
+	private final com.mendix.systemwideinterfaces.core.IMendixObject consumerConfigMendixObject;
+
+	private final com.mendix.systemwideinterfaces.core.IContext context;
+
 	/**
 	 * Internal name of this entity
 	 */
@@ -37,44 +41,7 @@ public class ConsumerConfig extends kafkamodule.proxies.KafkaConfig
 		auto_commit_interval_ms("auto_commit_interval_ms"),
 		check_crcs("check_crcs"),
 		fetch_max_wait_ms("fetch_max_wait_ms"),
-		bootstrap_servers("bootstrap_servers"),
-		ssl_key_password("ssl_key_password"),
-		ssl_keystore_location("ssl_keystore_location"),
-		ssl_keystore_password("ssl_keystore_password"),
-		ssl_truststore_location("ssl_truststore_location"),
-		ssl_truststore_password("ssl_truststore_password"),
-		connections_max_idle_ms("connections_max_idle_ms"),
-		receive_buffer_bytes("receive_buffer_bytes"),
-		request_timeout_ms("request_timeout_ms"),
-		sasl_jaas_config("sasl_jaas_config"),
-		sasl_kerberos_service_name("sasl_kerberos_service_name"),
-		sasl_mechanism("sasl_mechanism"),
-		security_protocol("security_protocol"),
-		send_buffer_bytes("send_buffer_bytes"),
-		ssl_enabled_protocols("ssl_enabled_protocols"),
-		ssl_keystore_type("ssl_keystore_type"),
-		ssl_protocol("ssl_protocol"),
-		ssl_provider("ssl_provider"),
-		ssl_truststore_type("ssl_truststore_type"),
-		client_id("client_id"),
-		interceptor_classes("interceptor_classes"),
-		metadata_max_age_ms("metadata_max_age_ms"),
-		metric_reporters("metric_reporters"),
-		metrics_num_samples("metrics_num_samples"),
-		metrics_recording_level("metrics_recording_level"),
-		metrics_sample_window_ms("metrics_sample_window_ms"),
-		reconnect_backoff_max_ms("reconnect_backoff_max_ms"),
-		reconnect_backoff_ms("reconnect_backoff_ms"),
-		retry_backoff_ms("retry_backoff_ms"),
-		sasl_kerberos_kinit_cmd("sasl_kerberos_kinit_cmd"),
-		sasl_kerberos_min_time_before_relogin("sasl_kerberos_min_time_before_relogin"),
-		sasl_kerberos_ticket_renew_jitter("sasl_kerberos_ticket_renew_jitter"),
-		sasl_kerberos_ticket_renew_window_factor("sasl_kerberos_ticket_renew_window_factor"),
-		ssl_cipher_suites("ssl_cipher_suites"),
-		ssl_endpoint_identification_algorithm("ssl_endpoint_identification_algorithm"),
-		ssl_keymanager_algorithm("ssl_keymanager_algorithm"),
-		ssl_secure_random_implementation("ssl_secure_random_implementation"),
-		ssl_trustmanager_algorithm("ssl_trustmanager_algorithm");
+		KafkaConsumer_ConsumerConfig("KafkaModule.KafkaConsumer_ConsumerConfig");
 
 		private java.lang.String metaName;
 
@@ -97,9 +64,13 @@ public class ConsumerConfig extends kafkamodule.proxies.KafkaConfig
 
 	protected ConsumerConfig(com.mendix.systemwideinterfaces.core.IContext context, com.mendix.systemwideinterfaces.core.IMendixObject consumerConfigMendixObject)
 	{
-		super(context, consumerConfigMendixObject);
+		if (consumerConfigMendixObject == null)
+			throw new java.lang.IllegalArgumentException("The given object cannot be null.");
 		if (!com.mendix.core.Core.isSubClassOf("KafkaModule.ConsumerConfig", consumerConfigMendixObject.getType()))
 			throw new java.lang.IllegalArgumentException("The given object is not a KafkaModule.ConsumerConfig");
+
+		this.consumerConfigMendixObject = consumerConfigMendixObject;
+		this.context = context;
 	}
 
 	/**
@@ -134,6 +105,37 @@ public class ConsumerConfig extends kafkamodule.proxies.KafkaConfig
 		return result;
 	}
 
+	/**
+	 * Commit the changes made on this proxy object.
+	 */
+	public final void commit() throws com.mendix.core.CoreException
+	{
+		com.mendix.core.Core.commit(context, getMendixObject());
+	}
+
+	/**
+	 * Commit the changes made on this proxy object using the specified context.
+	 */
+	public final void commit(com.mendix.systemwideinterfaces.core.IContext context) throws com.mendix.core.CoreException
+	{
+		com.mendix.core.Core.commit(context, getMendixObject());
+	}
+
+	/**
+	 * Delete the object.
+	 */
+	public final void delete()
+	{
+		com.mendix.core.Core.delete(context, getMendixObject());
+	}
+
+	/**
+	 * Delete the object using the specified context.
+	 */
+	public final void delete(com.mendix.systemwideinterfaces.core.IContext context)
+	{
+		com.mendix.core.Core.delete(context, getMendixObject());
+	}
 	/**
 	 * @return value of key_deserializer
 	 */
@@ -782,6 +784,65 @@ public class ConsumerConfig extends kafkamodule.proxies.KafkaConfig
 		getMendixObject().setValue(context, MemberNames.fetch_max_wait_ms.toString(), fetch_max_wait_ms);
 	}
 
+	/**
+	 * @return value of KafkaConsumer_ConsumerConfig
+	 */
+	public final kafkamodule.proxies.KafkaConsumer getKafkaConsumer_ConsumerConfig() throws com.mendix.core.CoreException
+	{
+		return getKafkaConsumer_ConsumerConfig(getContext());
+	}
+
+	/**
+	 * @param context
+	 * @return value of KafkaConsumer_ConsumerConfig
+	 */
+	public final kafkamodule.proxies.KafkaConsumer getKafkaConsumer_ConsumerConfig(com.mendix.systemwideinterfaces.core.IContext context) throws com.mendix.core.CoreException
+	{
+		kafkamodule.proxies.KafkaConsumer result = null;
+		com.mendix.systemwideinterfaces.core.IMendixIdentifier identifier = getMendixObject().getValue(context, MemberNames.KafkaConsumer_ConsumerConfig.toString());
+		if (identifier != null)
+			result = kafkamodule.proxies.KafkaConsumer.load(context, identifier);
+		return result;
+	}
+
+	/**
+	 * Set value of KafkaConsumer_ConsumerConfig
+	 * @param kafkaconsumer_consumerconfig
+	 */
+	public final void setKafkaConsumer_ConsumerConfig(kafkamodule.proxies.KafkaConsumer kafkaconsumer_consumerconfig)
+	{
+		setKafkaConsumer_ConsumerConfig(getContext(), kafkaconsumer_consumerconfig);
+	}
+
+	/**
+	 * Set value of KafkaConsumer_ConsumerConfig
+	 * @param context
+	 * @param kafkaconsumer_consumerconfig
+	 */
+	public final void setKafkaConsumer_ConsumerConfig(com.mendix.systemwideinterfaces.core.IContext context, kafkamodule.proxies.KafkaConsumer kafkaconsumer_consumerconfig)
+	{
+		if (kafkaconsumer_consumerconfig == null)
+			getMendixObject().setValue(context, MemberNames.KafkaConsumer_ConsumerConfig.toString(), null);
+		else
+			getMendixObject().setValue(context, MemberNames.KafkaConsumer_ConsumerConfig.toString(), kafkaconsumer_consumerconfig.getMendixObject().getId());
+	}
+
+	/**
+	 * @return the IMendixObject instance of this proxy for use in the Core interface.
+	 */
+	public final com.mendix.systemwideinterfaces.core.IMendixObject getMendixObject()
+	{
+		return consumerConfigMendixObject;
+	}
+
+	/**
+	 * @return the IContext instance of this proxy, or null if no IContext instance was specified at initialization.
+	 */
+	public final com.mendix.systemwideinterfaces.core.IContext getContext()
+	{
+		return context;
+	}
+
 	@Override
 	public boolean equals(Object obj)
 	{
@@ -814,7 +875,6 @@ public class ConsumerConfig extends kafkamodule.proxies.KafkaConfig
 	 * @return String GUID from this object, format: ID_0000000000
 	 * @deprecated Use getMendixObject().getId().toLong() to get a unique identifier for this object.
 	 */
-	@Override
 	@Deprecated
 	public java.lang.String getGUID()
 	{

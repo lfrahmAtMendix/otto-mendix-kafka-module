@@ -36,11 +36,6 @@ public class StreamsConfig extends kafkamodule.proxies.KafkaConfig
 		state_cleanup_delay_ms("state_cleanup_delay_ms"),
 		windowstore_changelog_additional_retention_ms("windowstore_changelog_additional_retention_ms"),
 		bootstrap_servers("bootstrap_servers"),
-		ssl_key_password("ssl_key_password"),
-		ssl_keystore_location("ssl_keystore_location"),
-		ssl_keystore_password("ssl_keystore_password"),
-		ssl_truststore_location("ssl_truststore_location"),
-		ssl_truststore_password("ssl_truststore_password"),
 		connections_max_idle_ms("connections_max_idle_ms"),
 		receive_buffer_bytes("receive_buffer_bytes"),
 		request_timeout_ms("request_timeout_ms"),
@@ -72,7 +67,8 @@ public class StreamsConfig extends kafkamodule.proxies.KafkaConfig
 		ssl_endpoint_identification_algorithm("ssl_endpoint_identification_algorithm"),
 		ssl_keymanager_algorithm("ssl_keymanager_algorithm"),
 		ssl_secure_random_implementation("ssl_secure_random_implementation"),
-		ssl_trustmanager_algorithm("ssl_trustmanager_algorithm");
+		ssl_trustmanager_algorithm("ssl_trustmanager_algorithm"),
+		KafkaServer_KafkaConfig("KafkaModule.KafkaServer_KafkaConfig");
 
 		private java.lang.String metaName;
 

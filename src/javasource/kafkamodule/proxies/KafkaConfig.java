@@ -24,11 +24,6 @@ public class KafkaConfig
 	public enum MemberNames
 	{
 		bootstrap_servers("bootstrap_servers"),
-		ssl_key_password("ssl_key_password"),
-		ssl_keystore_location("ssl_keystore_location"),
-		ssl_keystore_password("ssl_keystore_password"),
-		ssl_truststore_location("ssl_truststore_location"),
-		ssl_truststore_password("ssl_truststore_password"),
 		connections_max_idle_ms("connections_max_idle_ms"),
 		receive_buffer_bytes("receive_buffer_bytes"),
 		request_timeout_ms("request_timeout_ms"),
@@ -60,7 +55,8 @@ public class KafkaConfig
 		ssl_endpoint_identification_algorithm("ssl_endpoint_identification_algorithm"),
 		ssl_keymanager_algorithm("ssl_keymanager_algorithm"),
 		ssl_secure_random_implementation("ssl_secure_random_implementation"),
-		ssl_trustmanager_algorithm("ssl_trustmanager_algorithm");
+		ssl_trustmanager_algorithm("ssl_trustmanager_algorithm"),
+		KafkaServer_KafkaConfig("KafkaModule.KafkaServer_KafkaConfig");
 
 		private java.lang.String metaName;
 
@@ -107,12 +103,6 @@ public class KafkaConfig
 	 */
 	public static kafkamodule.proxies.KafkaConfig initialize(com.mendix.systemwideinterfaces.core.IContext context, com.mendix.systemwideinterfaces.core.IMendixObject mendixObject)
 	{
-		if (com.mendix.core.Core.isSubClassOf("KafkaModule.ConsumerConfig", mendixObject.getType()))
-			return kafkamodule.proxies.ConsumerConfig.initialize(context, mendixObject);
-
-		if (com.mendix.core.Core.isSubClassOf("KafkaModule.ProducerConfig", mendixObject.getType()))
-			return kafkamodule.proxies.ProducerConfig.initialize(context, mendixObject);
-
 		if (com.mendix.core.Core.isSubClassOf("KafkaModule.StreamsConfig", mendixObject.getType()))
 			return kafkamodule.proxies.StreamsConfig.initialize(context, mendixObject);
 
@@ -198,186 +188,6 @@ public class KafkaConfig
 	public final void setbootstrap_servers(com.mendix.systemwideinterfaces.core.IContext context, java.lang.String bootstrap_servers)
 	{
 		getMendixObject().setValue(context, MemberNames.bootstrap_servers.toString(), bootstrap_servers);
-	}
-
-	/**
-	 * @return value of ssl_key_password
-	 */
-	public final java.lang.String getssl_key_password()
-	{
-		return getssl_key_password(getContext());
-	}
-
-	/**
-	 * @param context
-	 * @return value of ssl_key_password
-	 */
-	public final java.lang.String getssl_key_password(com.mendix.systemwideinterfaces.core.IContext context)
-	{
-		return (java.lang.String) getMendixObject().getValue(context, MemberNames.ssl_key_password.toString());
-	}
-
-	/**
-	 * Set value of ssl_key_password
-	 * @param ssl_key_password
-	 */
-	public final void setssl_key_password(java.lang.String ssl_key_password)
-	{
-		setssl_key_password(getContext(), ssl_key_password);
-	}
-
-	/**
-	 * Set value of ssl_key_password
-	 * @param context
-	 * @param ssl_key_password
-	 */
-	public final void setssl_key_password(com.mendix.systemwideinterfaces.core.IContext context, java.lang.String ssl_key_password)
-	{
-		getMendixObject().setValue(context, MemberNames.ssl_key_password.toString(), ssl_key_password);
-	}
-
-	/**
-	 * @return value of ssl_keystore_location
-	 */
-	public final java.lang.String getssl_keystore_location()
-	{
-		return getssl_keystore_location(getContext());
-	}
-
-	/**
-	 * @param context
-	 * @return value of ssl_keystore_location
-	 */
-	public final java.lang.String getssl_keystore_location(com.mendix.systemwideinterfaces.core.IContext context)
-	{
-		return (java.lang.String) getMendixObject().getValue(context, MemberNames.ssl_keystore_location.toString());
-	}
-
-	/**
-	 * Set value of ssl_keystore_location
-	 * @param ssl_keystore_location
-	 */
-	public final void setssl_keystore_location(java.lang.String ssl_keystore_location)
-	{
-		setssl_keystore_location(getContext(), ssl_keystore_location);
-	}
-
-	/**
-	 * Set value of ssl_keystore_location
-	 * @param context
-	 * @param ssl_keystore_location
-	 */
-	public final void setssl_keystore_location(com.mendix.systemwideinterfaces.core.IContext context, java.lang.String ssl_keystore_location)
-	{
-		getMendixObject().setValue(context, MemberNames.ssl_keystore_location.toString(), ssl_keystore_location);
-	}
-
-	/**
-	 * @return value of ssl_keystore_password
-	 */
-	public final java.lang.String getssl_keystore_password()
-	{
-		return getssl_keystore_password(getContext());
-	}
-
-	/**
-	 * @param context
-	 * @return value of ssl_keystore_password
-	 */
-	public final java.lang.String getssl_keystore_password(com.mendix.systemwideinterfaces.core.IContext context)
-	{
-		return (java.lang.String) getMendixObject().getValue(context, MemberNames.ssl_keystore_password.toString());
-	}
-
-	/**
-	 * Set value of ssl_keystore_password
-	 * @param ssl_keystore_password
-	 */
-	public final void setssl_keystore_password(java.lang.String ssl_keystore_password)
-	{
-		setssl_keystore_password(getContext(), ssl_keystore_password);
-	}
-
-	/**
-	 * Set value of ssl_keystore_password
-	 * @param context
-	 * @param ssl_keystore_password
-	 */
-	public final void setssl_keystore_password(com.mendix.systemwideinterfaces.core.IContext context, java.lang.String ssl_keystore_password)
-	{
-		getMendixObject().setValue(context, MemberNames.ssl_keystore_password.toString(), ssl_keystore_password);
-	}
-
-	/**
-	 * @return value of ssl_truststore_location
-	 */
-	public final java.lang.String getssl_truststore_location()
-	{
-		return getssl_truststore_location(getContext());
-	}
-
-	/**
-	 * @param context
-	 * @return value of ssl_truststore_location
-	 */
-	public final java.lang.String getssl_truststore_location(com.mendix.systemwideinterfaces.core.IContext context)
-	{
-		return (java.lang.String) getMendixObject().getValue(context, MemberNames.ssl_truststore_location.toString());
-	}
-
-	/**
-	 * Set value of ssl_truststore_location
-	 * @param ssl_truststore_location
-	 */
-	public final void setssl_truststore_location(java.lang.String ssl_truststore_location)
-	{
-		setssl_truststore_location(getContext(), ssl_truststore_location);
-	}
-
-	/**
-	 * Set value of ssl_truststore_location
-	 * @param context
-	 * @param ssl_truststore_location
-	 */
-	public final void setssl_truststore_location(com.mendix.systemwideinterfaces.core.IContext context, java.lang.String ssl_truststore_location)
-	{
-		getMendixObject().setValue(context, MemberNames.ssl_truststore_location.toString(), ssl_truststore_location);
-	}
-
-	/**
-	 * @return value of ssl_truststore_password
-	 */
-	public final java.lang.String getssl_truststore_password()
-	{
-		return getssl_truststore_password(getContext());
-	}
-
-	/**
-	 * @param context
-	 * @return value of ssl_truststore_password
-	 */
-	public final java.lang.String getssl_truststore_password(com.mendix.systemwideinterfaces.core.IContext context)
-	{
-		return (java.lang.String) getMendixObject().getValue(context, MemberNames.ssl_truststore_password.toString());
-	}
-
-	/**
-	 * Set value of ssl_truststore_password
-	 * @param ssl_truststore_password
-	 */
-	public final void setssl_truststore_password(java.lang.String ssl_truststore_password)
-	{
-		setssl_truststore_password(getContext(), ssl_truststore_password);
-	}
-
-	/**
-	 * Set value of ssl_truststore_password
-	 * @param context
-	 * @param ssl_truststore_password
-	 */
-	public final void setssl_truststore_password(com.mendix.systemwideinterfaces.core.IContext context, java.lang.String ssl_truststore_password)
-	{
-		getMendixObject().setValue(context, MemberNames.ssl_truststore_password.toString(), ssl_truststore_password);
 	}
 
 	/**
@@ -1530,6 +1340,49 @@ public class KafkaConfig
 	public final void setssl_trustmanager_algorithm(com.mendix.systemwideinterfaces.core.IContext context, java.lang.String ssl_trustmanager_algorithm)
 	{
 		getMendixObject().setValue(context, MemberNames.ssl_trustmanager_algorithm.toString(), ssl_trustmanager_algorithm);
+	}
+
+	/**
+	 * @return value of KafkaServer_KafkaConfig
+	 */
+	public final kafkamodule.proxies.KafkaServer getKafkaServer_KafkaConfig() throws com.mendix.core.CoreException
+	{
+		return getKafkaServer_KafkaConfig(getContext());
+	}
+
+	/**
+	 * @param context
+	 * @return value of KafkaServer_KafkaConfig
+	 */
+	public final kafkamodule.proxies.KafkaServer getKafkaServer_KafkaConfig(com.mendix.systemwideinterfaces.core.IContext context) throws com.mendix.core.CoreException
+	{
+		kafkamodule.proxies.KafkaServer result = null;
+		com.mendix.systemwideinterfaces.core.IMendixIdentifier identifier = getMendixObject().getValue(context, MemberNames.KafkaServer_KafkaConfig.toString());
+		if (identifier != null)
+			result = kafkamodule.proxies.KafkaServer.load(context, identifier);
+		return result;
+	}
+
+	/**
+	 * Set value of KafkaServer_KafkaConfig
+	 * @param kafkaserver_kafkaconfig
+	 */
+	public final void setKafkaServer_KafkaConfig(kafkamodule.proxies.KafkaServer kafkaserver_kafkaconfig)
+	{
+		setKafkaServer_KafkaConfig(getContext(), kafkaserver_kafkaconfig);
+	}
+
+	/**
+	 * Set value of KafkaServer_KafkaConfig
+	 * @param context
+	 * @param kafkaserver_kafkaconfig
+	 */
+	public final void setKafkaServer_KafkaConfig(com.mendix.systemwideinterfaces.core.IContext context, kafkamodule.proxies.KafkaServer kafkaserver_kafkaconfig)
+	{
+		if (kafkaserver_kafkaconfig == null)
+			getMendixObject().setValue(context, MemberNames.KafkaServer_KafkaConfig.toString(), null);
+		else
+			getMendixObject().setValue(context, MemberNames.KafkaServer_KafkaConfig.toString(), kafkaserver_kafkaconfig.getMendixObject().getId());
 	}
 
 	/**

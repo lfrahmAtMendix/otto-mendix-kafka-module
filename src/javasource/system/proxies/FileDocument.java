@@ -74,6 +74,9 @@ public class FileDocument
 		if (com.mendix.core.Core.isSubClassOf("System.Image", mendixObject.getType()))
 			return system.proxies.Image.initialize(context, mendixObject);
 
+		if (com.mendix.core.Core.isSubClassOf("KafkaModule.KeyStore", mendixObject.getType()))
+			return kafkamodule.proxies.KeyStore.initialize(context, mendixObject);
+
 		return new system.proxies.FileDocument(context, mendixObject);
 	}
 
