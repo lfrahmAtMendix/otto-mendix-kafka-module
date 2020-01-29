@@ -11,6 +11,9 @@ package kafkamodule.actions;
 
 import com.mendix.systemwideinterfaces.core.IContext;
 import com.mendix.webui.CustomJavaAction;
+import kafkamodule.impl.FilteredKafkaProcessor;
+import kafkamodule.impl.KafkaProcessor;
+import kafkamodule.impl.KafkaProcessorRepository;
 import com.mendix.systemwideinterfaces.core.IMendixObject;
 
 /**

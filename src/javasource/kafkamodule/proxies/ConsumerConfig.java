@@ -31,7 +31,6 @@ public class ConsumerConfig
 		max_partition_fetch_bytes("max_partition_fetch_bytes"),
 		session_timeout_ms("session_timeout_ms"),
 		auto_offset_reset("auto_offset_reset"),
-		enable_auto_commit("enable_auto_commit"),
 		exclude_internal_topics("exclude_internal_topics"),
 		fetch_max_bytes("fetch_max_bytes"),
 		isolation_level("isolation_level"),
@@ -41,7 +40,7 @@ public class ConsumerConfig
 		auto_commit_interval_ms("auto_commit_interval_ms"),
 		check_crcs("check_crcs"),
 		fetch_max_wait_ms("fetch_max_wait_ms"),
-		KafkaConsumer_ConsumerConfig("KafkaModule.KafkaConsumer_ConsumerConfig");
+		Consumer_ConsumerConfig("KafkaModule.Consumer_ConsumerConfig");
 
 		private java.lang.String metaName;
 
@@ -84,7 +83,7 @@ public class ConsumerConfig
 
 	/**
 	 * Initialize a proxy using context (recommended). This context will be used for security checking when the get- and set-methods without context parameters are called.
-	 * The get- and set-methods with context parameter should be used when for instance sudo access is necessary (IContext.getSudoContext() can be used to obtain sudo access).
+	 * The get- and set-methods with context parameter should be used when for instance sudo access is necessary (IContext.createSudoClone() can be used to obtain sudo access).
 	 */
 	public static kafkamodule.proxies.ConsumerConfig initialize(com.mendix.systemwideinterfaces.core.IContext context, com.mendix.systemwideinterfaces.core.IMendixObject mendixObject)
 	{
@@ -425,42 +424,6 @@ public class ConsumerConfig
 	}
 
 	/**
-	 * @return value of enable_auto_commit
-	 */
-	public final java.lang.Boolean getenable_auto_commit()
-	{
-		return getenable_auto_commit(getContext());
-	}
-
-	/**
-	 * @param context
-	 * @return value of enable_auto_commit
-	 */
-	public final java.lang.Boolean getenable_auto_commit(com.mendix.systemwideinterfaces.core.IContext context)
-	{
-		return (java.lang.Boolean) getMendixObject().getValue(context, MemberNames.enable_auto_commit.toString());
-	}
-
-	/**
-	 * Set value of enable_auto_commit
-	 * @param enable_auto_commit
-	 */
-	public final void setenable_auto_commit(java.lang.Boolean enable_auto_commit)
-	{
-		setenable_auto_commit(getContext(), enable_auto_commit);
-	}
-
-	/**
-	 * Set value of enable_auto_commit
-	 * @param context
-	 * @param enable_auto_commit
-	 */
-	public final void setenable_auto_commit(com.mendix.systemwideinterfaces.core.IContext context, java.lang.Boolean enable_auto_commit)
-	{
-		getMendixObject().setValue(context, MemberNames.enable_auto_commit.toString(), enable_auto_commit);
-	}
-
-	/**
 	 * @return value of exclude_internal_topics
 	 */
 	public final java.lang.Boolean getexclude_internal_topics()
@@ -785,46 +748,46 @@ public class ConsumerConfig
 	}
 
 	/**
-	 * @return value of KafkaConsumer_ConsumerConfig
+	 * @return value of Consumer_ConsumerConfig
 	 */
-	public final kafkamodule.proxies.KafkaConsumer getKafkaConsumer_ConsumerConfig() throws com.mendix.core.CoreException
+	public final kafkamodule.proxies.Consumer getConsumer_ConsumerConfig() throws com.mendix.core.CoreException
 	{
-		return getKafkaConsumer_ConsumerConfig(getContext());
+		return getConsumer_ConsumerConfig(getContext());
 	}
 
 	/**
 	 * @param context
-	 * @return value of KafkaConsumer_ConsumerConfig
+	 * @return value of Consumer_ConsumerConfig
 	 */
-	public final kafkamodule.proxies.KafkaConsumer getKafkaConsumer_ConsumerConfig(com.mendix.systemwideinterfaces.core.IContext context) throws com.mendix.core.CoreException
+	public final kafkamodule.proxies.Consumer getConsumer_ConsumerConfig(com.mendix.systemwideinterfaces.core.IContext context) throws com.mendix.core.CoreException
 	{
-		kafkamodule.proxies.KafkaConsumer result = null;
-		com.mendix.systemwideinterfaces.core.IMendixIdentifier identifier = getMendixObject().getValue(context, MemberNames.KafkaConsumer_ConsumerConfig.toString());
+		kafkamodule.proxies.Consumer result = null;
+		com.mendix.systemwideinterfaces.core.IMendixIdentifier identifier = getMendixObject().getValue(context, MemberNames.Consumer_ConsumerConfig.toString());
 		if (identifier != null)
-			result = kafkamodule.proxies.KafkaConsumer.load(context, identifier);
+			result = kafkamodule.proxies.Consumer.load(context, identifier);
 		return result;
 	}
 
 	/**
-	 * Set value of KafkaConsumer_ConsumerConfig
-	 * @param kafkaconsumer_consumerconfig
+	 * Set value of Consumer_ConsumerConfig
+	 * @param consumer_consumerconfig
 	 */
-	public final void setKafkaConsumer_ConsumerConfig(kafkamodule.proxies.KafkaConsumer kafkaconsumer_consumerconfig)
+	public final void setConsumer_ConsumerConfig(kafkamodule.proxies.Consumer consumer_consumerconfig)
 	{
-		setKafkaConsumer_ConsumerConfig(getContext(), kafkaconsumer_consumerconfig);
+		setConsumer_ConsumerConfig(getContext(), consumer_consumerconfig);
 	}
 
 	/**
-	 * Set value of KafkaConsumer_ConsumerConfig
+	 * Set value of Consumer_ConsumerConfig
 	 * @param context
-	 * @param kafkaconsumer_consumerconfig
+	 * @param consumer_consumerconfig
 	 */
-	public final void setKafkaConsumer_ConsumerConfig(com.mendix.systemwideinterfaces.core.IContext context, kafkamodule.proxies.KafkaConsumer kafkaconsumer_consumerconfig)
+	public final void setConsumer_ConsumerConfig(com.mendix.systemwideinterfaces.core.IContext context, kafkamodule.proxies.Consumer consumer_consumerconfig)
 	{
-		if (kafkaconsumer_consumerconfig == null)
-			getMendixObject().setValue(context, MemberNames.KafkaConsumer_ConsumerConfig.toString(), null);
+		if (consumer_consumerconfig == null)
+			getMendixObject().setValue(context, MemberNames.Consumer_ConsumerConfig.toString(), null);
 		else
-			getMendixObject().setValue(context, MemberNames.KafkaConsumer_ConsumerConfig.toString(), kafkaconsumer_consumerconfig.getMendixObject().getId());
+			getMendixObject().setValue(context, MemberNames.Consumer_ConsumerConfig.toString(), consumer_consumerconfig.getMendixObject().getId());
 	}
 
 	/**

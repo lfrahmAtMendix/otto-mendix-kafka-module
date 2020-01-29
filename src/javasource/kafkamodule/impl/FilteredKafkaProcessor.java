@@ -1,4 +1,4 @@
-package kafkamodule.actions;
+package kafkamodule.impl;
 
 import java.io.IOException;
 

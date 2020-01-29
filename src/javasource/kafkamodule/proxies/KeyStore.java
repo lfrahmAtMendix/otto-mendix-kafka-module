@@ -23,8 +23,9 @@ public class KeyStore extends system.proxies.FileDocument
 		DeleteAfterDownload("DeleteAfterDownload"),
 		Contents("Contents"),
 		HasContents("HasContents"),
-		TrustStore_KeyStore("KafkaModule.TrustStore_KeyStore"),
-		KeyStore_KeyStore("KafkaModule.KeyStore_KeyStore");
+		Size("Size"),
+		Server_TrustStore("KafkaModule.Server_TrustStore"),
+		Server_KeyStore("KafkaModule.Server_KeyStore");
 
 		private java.lang.String metaName;
 
@@ -63,7 +64,7 @@ public class KeyStore extends system.proxies.FileDocument
 
 	/**
 	 * Initialize a proxy using context (recommended). This context will be used for security checking when the get- and set-methods without context parameters are called.
-	 * The get- and set-methods with context parameter should be used when for instance sudo access is necessary (IContext.getSudoContext() can be used to obtain sudo access).
+	 * The get- and set-methods with context parameter should be used when for instance sudo access is necessary (IContext.createSudoClone() can be used to obtain sudo access).
 	 */
 	public static kafkamodule.proxies.KeyStore initialize(com.mendix.systemwideinterfaces.core.IContext context, com.mendix.systemwideinterfaces.core.IMendixObject mendixObject)
 	{
@@ -157,89 +158,89 @@ public class KeyStore extends system.proxies.FileDocument
 	}
 
 	/**
-	 * @return value of TrustStore_KeyStore
+	 * @return value of Server_TrustStore
 	 */
-	public final kafkamodule.proxies.KafkaServer getTrustStore_KeyStore() throws com.mendix.core.CoreException
+	public final kafkamodule.proxies.Server getServer_TrustStore() throws com.mendix.core.CoreException
 	{
-		return getTrustStore_KeyStore(getContext());
+		return getServer_TrustStore(getContext());
 	}
 
 	/**
 	 * @param context
-	 * @return value of TrustStore_KeyStore
+	 * @return value of Server_TrustStore
 	 */
-	public final kafkamodule.proxies.KafkaServer getTrustStore_KeyStore(com.mendix.systemwideinterfaces.core.IContext context) throws com.mendix.core.CoreException
+	public final kafkamodule.proxies.Server getServer_TrustStore(com.mendix.systemwideinterfaces.core.IContext context) throws com.mendix.core.CoreException
 	{
-		kafkamodule.proxies.KafkaServer result = null;
-		com.mendix.systemwideinterfaces.core.IMendixIdentifier identifier = getMendixObject().getValue(context, MemberNames.TrustStore_KeyStore.toString());
+		kafkamodule.proxies.Server result = null;
+		com.mendix.systemwideinterfaces.core.IMendixIdentifier identifier = getMendixObject().getValue(context, MemberNames.Server_TrustStore.toString());
 		if (identifier != null)
-			result = kafkamodule.proxies.KafkaServer.load(context, identifier);
+			result = kafkamodule.proxies.Server.load(context, identifier);
 		return result;
 	}
 
 	/**
-	 * Set value of TrustStore_KeyStore
-	 * @param truststore_keystore
+	 * Set value of Server_TrustStore
+	 * @param server_truststore
 	 */
-	public final void setTrustStore_KeyStore(kafkamodule.proxies.KafkaServer truststore_keystore)
+	public final void setServer_TrustStore(kafkamodule.proxies.Server server_truststore)
 	{
-		setTrustStore_KeyStore(getContext(), truststore_keystore);
+		setServer_TrustStore(getContext(), server_truststore);
 	}
 
 	/**
-	 * Set value of TrustStore_KeyStore
+	 * Set value of Server_TrustStore
 	 * @param context
-	 * @param truststore_keystore
+	 * @param server_truststore
 	 */
-	public final void setTrustStore_KeyStore(com.mendix.systemwideinterfaces.core.IContext context, kafkamodule.proxies.KafkaServer truststore_keystore)
+	public final void setServer_TrustStore(com.mendix.systemwideinterfaces.core.IContext context, kafkamodule.proxies.Server server_truststore)
 	{
-		if (truststore_keystore == null)
-			getMendixObject().setValue(context, MemberNames.TrustStore_KeyStore.toString(), null);
+		if (server_truststore == null)
+			getMendixObject().setValue(context, MemberNames.Server_TrustStore.toString(), null);
 		else
-			getMendixObject().setValue(context, MemberNames.TrustStore_KeyStore.toString(), truststore_keystore.getMendixObject().getId());
+			getMendixObject().setValue(context, MemberNames.Server_TrustStore.toString(), server_truststore.getMendixObject().getId());
 	}
 
 	/**
-	 * @return value of KeyStore_KeyStore
+	 * @return value of Server_KeyStore
 	 */
-	public final kafkamodule.proxies.KafkaServer getKeyStore_KeyStore() throws com.mendix.core.CoreException
+	public final kafkamodule.proxies.Server getServer_KeyStore() throws com.mendix.core.CoreException
 	{
-		return getKeyStore_KeyStore(getContext());
+		return getServer_KeyStore(getContext());
 	}
 
 	/**
 	 * @param context
-	 * @return value of KeyStore_KeyStore
+	 * @return value of Server_KeyStore
 	 */
-	public final kafkamodule.proxies.KafkaServer getKeyStore_KeyStore(com.mendix.systemwideinterfaces.core.IContext context) throws com.mendix.core.CoreException
+	public final kafkamodule.proxies.Server getServer_KeyStore(com.mendix.systemwideinterfaces.core.IContext context) throws com.mendix.core.CoreException
 	{
-		kafkamodule.proxies.KafkaServer result = null;
-		com.mendix.systemwideinterfaces.core.IMendixIdentifier identifier = getMendixObject().getValue(context, MemberNames.KeyStore_KeyStore.toString());
+		kafkamodule.proxies.Server result = null;
+		com.mendix.systemwideinterfaces.core.IMendixIdentifier identifier = getMendixObject().getValue(context, MemberNames.Server_KeyStore.toString());
 		if (identifier != null)
-			result = kafkamodule.proxies.KafkaServer.load(context, identifier);
+			result = kafkamodule.proxies.Server.load(context, identifier);
 		return result;
 	}
 
 	/**
-	 * Set value of KeyStore_KeyStore
-	 * @param keystore_keystore
+	 * Set value of Server_KeyStore
+	 * @param server_keystore
 	 */
-	public final void setKeyStore_KeyStore(kafkamodule.proxies.KafkaServer keystore_keystore)
+	public final void setServer_KeyStore(kafkamodule.proxies.Server server_keystore)
 	{
-		setKeyStore_KeyStore(getContext(), keystore_keystore);
+		setServer_KeyStore(getContext(), server_keystore);
 	}
 
 	/**
-	 * Set value of KeyStore_KeyStore
+	 * Set value of Server_KeyStore
 	 * @param context
-	 * @param keystore_keystore
+	 * @param server_keystore
 	 */
-	public final void setKeyStore_KeyStore(com.mendix.systemwideinterfaces.core.IContext context, kafkamodule.proxies.KafkaServer keystore_keystore)
+	public final void setServer_KeyStore(com.mendix.systemwideinterfaces.core.IContext context, kafkamodule.proxies.Server server_keystore)
 	{
-		if (keystore_keystore == null)
-			getMendixObject().setValue(context, MemberNames.KeyStore_KeyStore.toString(), null);
+		if (server_keystore == null)
+			getMendixObject().setValue(context, MemberNames.Server_KeyStore.toString(), null);
 		else
-			getMendixObject().setValue(context, MemberNames.KeyStore_KeyStore.toString(), keystore_keystore.getMendixObject().getId());
+			getMendixObject().setValue(context, MemberNames.Server_KeyStore.toString(), server_keystore.getMendixObject().getId());
 	}
 
 	@Override

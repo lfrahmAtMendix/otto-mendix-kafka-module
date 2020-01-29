@@ -1,4 +1,4 @@
-package kafkamodule.actions;
+package kafkamodule.impl;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -7,7 +7,7 @@ package kafkamodule.proxies;
 /**
  * The configuration of a processor. See http://kafka.apache.org/documentation.html#streamsconfigs for all configuration options.
  */
-public class StreamsConfig extends kafkamodule.proxies.KafkaConfig
+public class StreamsConfig extends kafkamodule.proxies.Config
 {
 	/**
 	 * Internal name of this entity
@@ -68,7 +68,7 @@ public class StreamsConfig extends kafkamodule.proxies.KafkaConfig
 		ssl_keymanager_algorithm("ssl_keymanager_algorithm"),
 		ssl_secure_random_implementation("ssl_secure_random_implementation"),
 		ssl_trustmanager_algorithm("ssl_trustmanager_algorithm"),
-		KafkaServer_KafkaConfig("KafkaModule.KafkaServer_KafkaConfig");
+		Server_Config("KafkaModule.Server_Config");
 
 		private java.lang.String metaName;
 
@@ -107,7 +107,7 @@ public class StreamsConfig extends kafkamodule.proxies.KafkaConfig
 
 	/**
 	 * Initialize a proxy using context (recommended). This context will be used for security checking when the get- and set-methods without context parameters are called.
-	 * The get- and set-methods with context parameter should be used when for instance sudo access is necessary (IContext.getSudoContext() can be used to obtain sudo access).
+	 * The get- and set-methods with context parameter should be used when for instance sudo access is necessary (IContext.createSudoClone() can be used to obtain sudo access).
 	 */
 	public static kafkamodule.proxies.StreamsConfig initialize(com.mendix.systemwideinterfaces.core.IContext context, com.mendix.systemwideinterfaces.core.IMendixObject mendixObject)
 	{

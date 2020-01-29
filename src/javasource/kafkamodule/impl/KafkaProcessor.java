@@ -1,4 +1,4 @@
-package kafkamodule.actions;
+package kafkamodule.impl;
 
 import java.util.*;
 
@@ -18,7 +18,8 @@ public class KafkaProcessor extends KafkaConfigurable {
 	protected String onProcessMicroflow;
 	
 	public KafkaProcessor(IMendixObject config, IContext context, String fromTopic, String toTopic, String onProcessMicroflow) {
-		super(config, context);
+		super(context);
+		props = KafkaPropertiesFactory.getKafkaProperties(context, config);
 		props.put(StreamsConfig.STATE_DIR_CONFIG, Core.getConfiguration().getTempPath().getAbsolutePath());
 		props.put(StreamsConfig.DEFAULT_KEY_SERDE_CLASS_CONFIG, Serdes.String().getClass().getName());
 		props.put(StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG, Serdes.String().getClass().getName());
@@ -48,12 +49,12 @@ public class KafkaProcessor extends KafkaConfigurable {
 		List<KeyValue<String, String>> result = new ArrayList<KeyValue<String, String>>();
 		try
 		{
-			logger.trace("executing " + onProcessMicroflow + "(" + key + "," + value + ")");
+			LOGGER.trace("executing " + onProcessMicroflow + "(" + key + "," + value + ")");
 			microflowResult = Core.execute(context, onProcessMicroflow, microflowParams);
 		}
 		catch (CoreException ex)
 		{
-			logger.error("An error occurred while processing from topic " + fromTopic + ": " + ex.toString());
+			LOGGER.error("An error occurred while processing from topic " + fromTopic + ": " + ex.toString());
 			return result;
 		}
 

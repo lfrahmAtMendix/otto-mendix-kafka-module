@@ -11,6 +11,7 @@ package kafkamodule.actions;
 
 import com.mendix.systemwideinterfaces.core.IContext;
 import com.mendix.webui.CustomJavaAction;
+import kafkamodule.impl.KafkaProducerRepository;
 
 /**
  * Stops a certain Kafka producer.

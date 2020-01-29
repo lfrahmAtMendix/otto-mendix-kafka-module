@@ -11,6 +11,9 @@ package kafkamodule.actions;
 
 import com.mendix.systemwideinterfaces.core.IContext;
 import com.mendix.webui.CustomJavaAction;
+import kafkamodule.impl.KafkaConsumerRepository;
+import kafkamodule.impl.KafkaProcessorRepository;
+import kafkamodule.impl.KafkaProducerRepository;
 
 /**
  * Stops all Kafka Consumers, Producers and Processors.

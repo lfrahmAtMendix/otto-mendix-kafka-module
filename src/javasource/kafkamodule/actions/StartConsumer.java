@@ -11,6 +11,9 @@ package kafkamodule.actions;
 
 import com.mendix.systemwideinterfaces.core.IContext;
 import com.mendix.webui.CustomJavaAction;
+import kafkamodule.impl.KafkaConsumerRepository;
+import kafkamodule.impl.KafkaConsumerRunner;
+import kafkamodule.impl.KafkaModule;
 import com.mendix.systemwideinterfaces.core.IMendixObject;
 
 /**
@@ -18,30 +21,27 @@ import com.mendix.systemwideinterfaces.core.IMendixObject;
  */
 public class StartConsumer extends CustomJavaAction<java.lang.Boolean>
 {
-	private java.lang.String ConsumerName;
-	private IMendixObject __Config;
-	private kafkamodule.proxies.ConsumerConfig Config;
-	private java.lang.String Topic;
-	private java.lang.String OnReceive;
+	private IMendixObject __consumer;
+	private kafkamodule.proxies.Consumer consumer;
 
-	public StartConsumer(IContext context, java.lang.String ConsumerName, IMendixObject Config, java.lang.String Topic, java.lang.String OnReceive)
+	public StartConsumer(IContext context, IMendixObject consumer)
 	{
 		super(context);
-		this.ConsumerName = ConsumerName;
-		this.__Config = Config;
-		this.Topic = Topic;
-		this.OnReceive = OnReceive;
+		this.__consumer = consumer;
 	}
 
 	@Override
 	public java.lang.Boolean executeAction() throws Exception
 	{
-		this.Config = __Config == null ? null : kafkamodule.proxies.ConsumerConfig.initialize(getContext(), __Config);
+		this.consumer = __consumer == null ? null : kafkamodule.proxies.Consumer.initialize(getContext(), __consumer);
 
 		// BEGIN USER CODE
-		KafkaConsumerRunner consumer = new KafkaConsumerRunner(__Config, Topic, OnReceive, getContext()); 
-		KafkaConsumerRepository.put(ConsumerName, consumer);
-		new Thread(consumer).start();
+		for (int i = 0; i < consumer.getConsumersPerInstance(); i++) {
+			KafkaConsumerRunner consumerRunner = new KafkaConsumerRunner(consumer, getContext()); 
+			KafkaConsumerRepository.put(consumer.getName() + "-" + i, consumerRunner);
+			new Thread(consumerRunner).start();
+			KafkaModule.LOGGER.info("Started Kafka consumer " + consumer.getName() + "-" + i);
+		}
 		
 		return true;
 		// END USER CODE

@@ -38,7 +38,7 @@ public class ProducerConfig
 		max_in_flight_requests_per_connection("max_in_flight_requests_per_connection"),
 		transaction_timeout_ms("transaction_timeout_ms"),
 		transactional_id("transactional_id"),
-		KafkaProducer_ProducerConfig("KafkaModule.KafkaProducer_ProducerConfig");
+		Producer_ProducerConfig("KafkaModule.Producer_ProducerConfig");
 
 		private java.lang.String metaName;
 
@@ -81,7 +81,7 @@ public class ProducerConfig
 
 	/**
 	 * Initialize a proxy using context (recommended). This context will be used for security checking when the get- and set-methods without context parameters are called.
-	 * The get- and set-methods with context parameter should be used when for instance sudo access is necessary (IContext.getSudoContext() can be used to obtain sudo access).
+	 * The get- and set-methods with context parameter should be used when for instance sudo access is necessary (IContext.createSudoClone() can be used to obtain sudo access).
 	 */
 	public static kafkamodule.proxies.ProducerConfig initialize(com.mendix.systemwideinterfaces.core.IContext context, com.mendix.systemwideinterfaces.core.IMendixObject mendixObject)
 	{
@@ -674,46 +674,46 @@ public class ProducerConfig
 	}
 
 	/**
-	 * @return value of KafkaProducer_ProducerConfig
+	 * @return value of Producer_ProducerConfig
 	 */
-	public final kafkamodule.proxies.KafkaProducer getKafkaProducer_ProducerConfig() throws com.mendix.core.CoreException
+	public final kafkamodule.proxies.Producer getProducer_ProducerConfig() throws com.mendix.core.CoreException
 	{
-		return getKafkaProducer_ProducerConfig(getContext());
+		return getProducer_ProducerConfig(getContext());
 	}
 
 	/**
 	 * @param context
-	 * @return value of KafkaProducer_ProducerConfig
+	 * @return value of Producer_ProducerConfig
 	 */
-	public final kafkamodule.proxies.KafkaProducer getKafkaProducer_ProducerConfig(com.mendix.systemwideinterfaces.core.IContext context) throws com.mendix.core.CoreException
+	public final kafkamodule.proxies.Producer getProducer_ProducerConfig(com.mendix.systemwideinterfaces.core.IContext context) throws com.mendix.core.CoreException
 	{
-		kafkamodule.proxies.KafkaProducer result = null;
-		com.mendix.systemwideinterfaces.core.IMendixIdentifier identifier = getMendixObject().getValue(context, MemberNames.KafkaProducer_ProducerConfig.toString());
+		kafkamodule.proxies.Producer result = null;
+		com.mendix.systemwideinterfaces.core.IMendixIdentifier identifier = getMendixObject().getValue(context, MemberNames.Producer_ProducerConfig.toString());
 		if (identifier != null)
-			result = kafkamodule.proxies.KafkaProducer.load(context, identifier);
+			result = kafkamodule.proxies.Producer.load(context, identifier);
 		return result;
 	}
 
 	/**
-	 * Set value of KafkaProducer_ProducerConfig
-	 * @param kafkaproducer_producerconfig
+	 * Set value of Producer_ProducerConfig
+	 * @param producer_producerconfig
 	 */
-	public final void setKafkaProducer_ProducerConfig(kafkamodule.proxies.KafkaProducer kafkaproducer_producerconfig)
+	public final void setProducer_ProducerConfig(kafkamodule.proxies.Producer producer_producerconfig)
 	{
-		setKafkaProducer_ProducerConfig(getContext(), kafkaproducer_producerconfig);
+		setProducer_ProducerConfig(getContext(), producer_producerconfig);
 	}
 
 	/**
-	 * Set value of KafkaProducer_ProducerConfig
+	 * Set value of Producer_ProducerConfig
 	 * @param context
-	 * @param kafkaproducer_producerconfig
+	 * @param producer_producerconfig
 	 */
-	public final void setKafkaProducer_ProducerConfig(com.mendix.systemwideinterfaces.core.IContext context, kafkamodule.proxies.KafkaProducer kafkaproducer_producerconfig)
+	public final void setProducer_ProducerConfig(com.mendix.systemwideinterfaces.core.IContext context, kafkamodule.proxies.Producer producer_producerconfig)
 	{
-		if (kafkaproducer_producerconfig == null)
-			getMendixObject().setValue(context, MemberNames.KafkaProducer_ProducerConfig.toString(), null);
+		if (producer_producerconfig == null)
+			getMendixObject().setValue(context, MemberNames.Producer_ProducerConfig.toString(), null);
 		else
-			getMendixObject().setValue(context, MemberNames.KafkaProducer_ProducerConfig.toString(), kafkaproducer_producerconfig.getMendixObject().getId());
+			getMendixObject().setValue(context, MemberNames.Producer_ProducerConfig.toString(), producer_producerconfig.getMendixObject().getId());
 	}
 
 	/**

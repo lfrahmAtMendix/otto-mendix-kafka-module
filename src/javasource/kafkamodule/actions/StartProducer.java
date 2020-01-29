@@ -9,8 +9,11 @@
 
 package kafkamodule.actions;
 
+import org.apache.kafka.clients.producer.KafkaProducer;
 import com.mendix.systemwideinterfaces.core.IContext;
 import com.mendix.webui.CustomJavaAction;
+import kafkamodule.impl.KafkaProducerRepository;
+import kafkamodule.impl.KafkaPropertiesFactory;
 import com.mendix.systemwideinterfaces.core.IMendixObject;
 
 /**
@@ -22,25 +25,24 @@ import com.mendix.systemwideinterfaces.core.IMendixObject;
  */
 public class StartProducer extends CustomJavaAction<java.lang.Boolean>
 {
-	private java.lang.String ProducerName;
-	private IMendixObject __Config;
-	private kafkamodule.proxies.ProducerConfig Config;
+	private IMendixObject __producer;
+	private kafkamodule.proxies.Producer producer;
 
-	public StartProducer(IContext context, java.lang.String ProducerName, IMendixObject Config)
+	public StartProducer(IContext context, IMendixObject producer)
 	{
 		super(context);
-		this.ProducerName = ProducerName;
-		this.__Config = Config;
+		this.__producer = producer;
 	}
 
 	@Override
 	public java.lang.Boolean executeAction() throws Exception
 	{
-		this.Config = __Config == null ? null : kafkamodule.proxies.ProducerConfig.initialize(getContext(), __Config);
+		this.producer = __producer == null ? null : kafkamodule.proxies.Producer.initialize(getContext(), __producer);
 
 		// BEGIN USER CODE
-		KafkaProducerWrapper producer = new KafkaProducerWrapper(__Config, getContext());
-		KafkaProducerRepository.put(ProducerName, producer);
+		KafkaProducer<String, String> kafkaProducer = new KafkaProducer<String, String>(
+					KafkaPropertiesFactory.getKafkaProperties(getContext(), producer));
+		KafkaProducerRepository.put(producer.getName(), kafkaProducer);
 		
 		return true;
 		// END USER CODE
