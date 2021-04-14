@@ -79,7 +79,7 @@ public class KafkaConsumerRunner extends KafkaConfigurable implements Runnable {
 					
 					IContext context = Core.createSystemContext();
 					try {
-						Core.execute(context, onReceiveMicroflow, microflowParams);	// throws CoreException
+						Core.microflowCall(onReceiveMicroflow).withParams(microflowParams).execute(context);	// throws CoreException
 						while (context.isInTransaction())
 							context.endTransaction();
 					} catch (Throwable e) {

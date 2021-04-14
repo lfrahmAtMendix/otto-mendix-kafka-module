@@ -50,9 +50,9 @@ public class KafkaProcessor extends KafkaConfigurable {
 		try
 		{
 			LOGGER.trace("executing " + onProcessMicroflow + "(" + key + "," + value + ")");
-			microflowResult = Core.execute(context, onProcessMicroflow, microflowParams);
+			microflowResult = Core.microflowCall(onProcessMicroflow).withParams(microflowParams).execute(context); 
 		}
-		catch (CoreException ex)
+		catch (Exception ex)
 		{
 			LOGGER.error("An error occurred while processing from topic " + fromTopic + ": " + ex.toString());
 			return result;
