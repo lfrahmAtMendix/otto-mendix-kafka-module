@@ -22,18 +22,28 @@ import kafka.impl.KafkaProducerRepository;
  */
 public class StopAll extends CustomJavaAction<java.lang.Boolean>
 {
-	public StopAll(IContext context)
+	private java.lang.Boolean producers;
+	private java.lang.Boolean consumers;
+	private java.lang.Boolean processors;
+
+	public StopAll(IContext context, java.lang.Boolean producers, java.lang.Boolean consumers, java.lang.Boolean processors)
 	{
 		super(context);
+		this.producers = producers;
+		this.consumers = consumers;
+		this.processors = processors;
 	}
 
 	@java.lang.Override
 	public java.lang.Boolean executeAction() throws Exception
 	{
 		// BEGIN USER CODE
-		KafkaProducerRepository.closeAll();
-		KafkaConsumerRepository.stopAll();
-		KafkaProcessorRepository.closeAll();
+		if (producers)
+			KafkaProducerRepository.closeAll();
+		if (consumers)
+			KafkaConsumerRepository.stopAll();
+		if (processors)
+			KafkaProcessorRepository.closeAll();
 		
 		return true;
 		// END USER CODE

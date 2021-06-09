@@ -20,6 +20,7 @@ public class Producer
 	 */
 	public enum MemberNames
 	{
+		Enabled("Enabled"),
 		Reference("Reference"),
 		Name("Name"),
 		Producer_ProducerConfig("Kafka.Producer_ProducerConfig"),
@@ -118,6 +119,42 @@ public class Producer
 	{
 		com.mendix.core.Core.delete(context, getMendixObject());
 	}
+	/**
+	 * @return value of Enabled
+	 */
+	public final java.lang.Boolean getEnabled()
+	{
+		return getEnabled(getContext());
+	}
+
+	/**
+	 * @param context
+	 * @return value of Enabled
+	 */
+	public final java.lang.Boolean getEnabled(com.mendix.systemwideinterfaces.core.IContext context)
+	{
+		return (java.lang.Boolean) getMendixObject().getValue(context, MemberNames.Enabled.toString());
+	}
+
+	/**
+	 * Set value of Enabled
+	 * @param enabled
+	 */
+	public final void setEnabled(java.lang.Boolean enabled)
+	{
+		setEnabled(getContext(), enabled);
+	}
+
+	/**
+	 * Set value of Enabled
+	 * @param context
+	 * @param enabled
+	 */
+	public final void setEnabled(com.mendix.systemwideinterfaces.core.IContext context, java.lang.Boolean enabled)
+	{
+		getMendixObject().setValue(context, MemberNames.Enabled.toString(), enabled);
+	}
+
 	/**
 	 * @return value of Reference
 	 */

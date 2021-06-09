@@ -62,9 +62,18 @@ public class KafkaConsumerRunner extends KafkaConfigurable implements Runnable {
 				ConsumerRecords<String, String> records = consumer.poll(Duration.ofMillis(100));
 				for (ConsumerRecord<String, String> record : records) {
 					Map<String, Object> microflowParams = new HashMap<String, Object>();
-					microflowParams.put("Offset", record.offset());
-					microflowParams.put("Key", record.key());
-					microflowParams.put("Value", record.value());
+					if (this.onReceiveInputParameters.containsKey("Offset")) {
+						microflowParams.put("Offset", record.offset());
+					}
+					if (this.onReceiveInputParameters.containsKey("Key")) {
+						microflowParams.put("Key", record.key());
+					}
+					if (this.onReceiveInputParameters.containsKey("Value")) {
+						microflowParams.put("Value", record.value());
+					}
+					if (this.onReceiveInputParameters.containsKey("Partition")) {
+						microflowParams.put("Partition", record.partition());
+					}
 
 					for (Header header : record.headers()) {
 						try {

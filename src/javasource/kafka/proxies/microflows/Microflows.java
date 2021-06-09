@@ -33,6 +33,11 @@ public class Microflows
 		params.put("KafkaServer", _kafkaServer == null ? null : _kafkaServer.getMendixObject());
 		Core.microflowCall("Kafka.ACr_KafkaServer").withParams(params).execute(context);
 	}
+	public static void aCT_ConfigObjectChanged(IContext context)
+	{
+		Map<java.lang.String, Object> params = new HashMap<>();
+		Core.microflowCall("Kafka.ACT_ConfigObjectChanged").withParams(params).execute(context);
+	}
 	public static boolean afterStartup(IContext context)
 	{
 		Map<java.lang.String, Object> params = new HashMap<>();
@@ -49,6 +54,17 @@ public class Microflows
 		Map<java.lang.String, Object> params = new HashMap<>();
 		params.put("KeyStore", _keyStore == null ? null : _keyStore.getMendixObject());
 		return (java.lang.Boolean) Core.microflowCall("Kafka.BCo_KeyStore").withParams(params).execute(context);
+	}
+	public static void beforeShutdown(IContext context)
+	{
+		Map<java.lang.String, Object> params = new HashMap<>();
+		Core.microflowCall("Kafka.BeforeShutdown").withParams(params).execute(context);
+	}
+	public static kafka.proxies.ConfigChanges dS_GetConfigChanges(IContext context)
+	{
+		Map<java.lang.String, Object> params = new HashMap<>();
+		IMendixObject result = (IMendixObject)Core.microflowCall("Kafka.DS_GetConfigChanges").withParams(params).execute(context);
+		return result == null ? null : kafka.proxies.ConfigChanges.initialize(context, result);
 	}
 	public static java.util.List<kafka.proxies.Partition> dS_GetDetailedPartitions(IContext context, kafka.proxies.Topic _topic, kafka.proxies.Explorer _explorer)
 	{
@@ -100,32 +116,14 @@ public class Microflows
 		}
 		return result;
 	}
-	public static java.util.List<kafka.proxies.Producer> dS_GetSelectableProducers(IContext context, kafka.proxies.Server _server)
-	{
-		Map<java.lang.String, Object> params = new HashMap<>();
-		params.put("Server", _server == null ? null : _server.getMendixObject());
-		java.util.List<IMendixObject> objs = Core.microflowCall("Kafka.DS_GetSelectableProducers").withParams(params).execute(context);
-		java.util.List<kafka.proxies.Producer> result = null;
-		if (objs != null)
-		{
-			result = new java.util.ArrayList<>();
-			for (IMendixObject obj : objs)
-				result.add(kafka.proxies.Producer.initialize(context, obj));
-		}
-		return result;
-	}
-	public static boolean example_AfterStartUpConsumersMicroflow(IContext context)
-	{
-		Map<java.lang.String, Object> params = new HashMap<>();
-		return (java.lang.Boolean) Core.microflowCall("Kafka.Example_AfterStartUpConsumersMicroflow").withParams(params).execute(context);
-	}
-	public static void example_OnReceiveMicroflow(IContext context, java.lang.Long _offset, java.lang.String _key, java.lang.String _value, java.lang.String _messageType)
+	public static void example_OnReceiveMicroflow(IContext context, java.lang.Long _offset, java.lang.String _key, java.lang.String _value, java.lang.String _messageType, java.lang.Long _partition)
 	{
 		Map<java.lang.String, Object> params = new HashMap<>();
 		params.put("Offset", _offset);
 		params.put("Key", _key);
 		params.put("Value", _value);
 		params.put("MessageType", _messageType);
+		params.put("Partition", _partition);
 		Core.microflowCall("Kafka.Example_OnReceiveMicroflow").withParams(params).execute(context);
 	}
 	public static void iVK_CreateNewHeader(IContext context, kafka.proxies.Publisher _publisher)
@@ -147,11 +145,10 @@ public class Microflows
 		params.put("Partition", _partition == null ? null : _partition.getMendixObject());
 		Core.microflowCall("Kafka.IVK_RetrieveMessages").withParams(params).execute(context);
 	}
-	public static void iVK_RetrieveTopics(IContext context, kafka.proxies.Explorer _explorer, kafka.proxies.Server _server)
+	public static void iVK_RetrieveTopics(IContext context, kafka.proxies.Explorer _explorer)
 	{
 		Map<java.lang.String, Object> params = new HashMap<>();
 		params.put("Explorer", _explorer == null ? null : _explorer.getMendixObject());
-		params.put("Server", _server == null ? null : _server.getMendixObject());
 		Core.microflowCall("Kafka.IVK_RetrieveTopics").withParams(params).execute(context);
 	}
 	public static void iVK_SaveKafkaConsumer(IContext context, kafka.proxies.Consumer _kafkaConsumer)
@@ -172,12 +169,26 @@ public class Microflows
 		params.put("KafkaServer", _kafkaServer == null ? null : _kafkaServer.getMendixObject());
 		Core.microflowCall("Kafka.IVK_SaveKafkaServer").withParams(params).execute(context);
 	}
-	/**
-	 * Stops all active Kafka connections. Use this as (part of) your 'Before shutdown' microflow.
-	 */
-	public static void shutdown(IContext context)
+	public static void onCh_ConfigChange(IContext context)
 	{
 		Map<java.lang.String, Object> params = new HashMap<>();
-		Core.microflowCall("Kafka.Shutdown").withParams(params).execute(context);
+		Core.microflowCall("Kafka.OnCh_ConfigChange").withParams(params).execute(context);
+	}
+	public static void sub_Restart(IContext context)
+	{
+		Map<java.lang.String, Object> params = new HashMap<>();
+		Core.microflowCall("Kafka.Sub_Restart").withParams(params).execute(context);
+	}
+	public static void sub_StartConsumer(IContext context, kafka.proxies.Consumer _consumer)
+	{
+		Map<java.lang.String, Object> params = new HashMap<>();
+		params.put("Consumer", _consumer == null ? null : _consumer.getMendixObject());
+		Core.microflowCall("Kafka.Sub_StartConsumer").withParams(params).execute(context);
+	}
+	public static void sub_StartProducer(IContext context, kafka.proxies.Producer _producer)
+	{
+		Map<java.lang.String, Object> params = new HashMap<>();
+		params.put("Producer", _producer == null ? null : _producer.getMendixObject());
+		Core.microflowCall("Kafka.Sub_StartProducer").withParams(params).execute(context);
 	}
 }

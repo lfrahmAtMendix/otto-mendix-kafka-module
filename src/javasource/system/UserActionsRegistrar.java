@@ -26,6 +26,8 @@ public class UserActionsRegistrar
     registrator.registerUserAction(kafka.actions.StopAll.class);
     registrator.registerUserAction(kafka.actions.StopProcessor.class);
     registrator.registerUserAction(kafka.actions.StopProducer.class);
+    registrator.registerUserAction(kafka.actions.StopWatchingObjects.class);
+    registrator.registerUserAction(kafka.actions.WatchObjectForChange.class);
     registrator.registerUserAction(librarylogging.actions.AddLibraryLogListener.class);
     registrator.registerUserAction(librarylogging.actions.InitializeLogging.class);
     registrator.registerUserAction(librarylogging.actions.SetRootLevel.class);
