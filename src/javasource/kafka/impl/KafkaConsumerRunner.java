@@ -97,11 +97,10 @@ public class KafkaConsumerRunner extends KafkaConfigurable implements Runnable {
 							while (context.isInTransaction())
 								context.endTransaction();
 						} catch (Exception ex) {};
-					} finally {
-						if (commitControl == CommitControl.CONSUMER) {
-							consumer.commitSync();
-						}
-					}
+					} 
+				}
+				if (commitControl == CommitControl.CONSUMER) {
+					consumer.commitSync();
 				}
 			} catch (WakeupException e) {
 				// Ignore exception if closing
