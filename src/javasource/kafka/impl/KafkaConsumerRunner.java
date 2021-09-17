@@ -19,6 +19,7 @@ import com.mendix.systemwideinterfaces.core.IDataType;
 
 import kafka.proxies.CommitControl;
 import kafka.proxies.Consumer;
+import kafka.proxies.constants.Constants;
 
 public class KafkaConsumerRunner extends KafkaConfigurable implements Runnable {
 	private final AtomicBoolean stopped = new AtomicBoolean(false);
@@ -106,7 +107,13 @@ public class KafkaConsumerRunner extends KafkaConfigurable implements Runnable {
 				// Ignore exception if closing
 				if (!stopped.get()) throw e;
 			} catch (Exception e) {
-				LOGGER.critical("An uncatched exception occurred on Kafka consumer " + name + " expect to have a consumer less.", e);
+				String msg = "An uncatched exception occurred on Kafka consumer " + name + " expect to (temporary) have a consumer less.";
+				if(Constants.getLogConsumerLostAsCritical()) {
+					LOGGER.critical(msg, e);
+				} else {
+					LOGGER.error(msg, e);
+				}
+				
 				try { Thread.sleep(30000); } catch (Exception ex) {}
 			}
 		}
