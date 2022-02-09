@@ -15,10 +15,9 @@ import com.mendix.systemwideinterfaces.core.IMendixObject;
 public class Microflows
 {
 	// These are the microflows for the Demo module
-	public static java.lang.String celsiusToFahrenheit(IContext context, java.lang.String _key, java.lang.String _value)
+	public static java.lang.String celsiusToFahrenheit(IContext context, java.lang.String _value)
 	{
 		Map<java.lang.String, Object> params = new HashMap<>();
-		params.put("key", _key);
 		params.put("value", _value);
 		return (java.lang.String) Core.microflowCall("Demo.CelsiusToFahrenheit").withParams(params).execute(context);
 	}
@@ -53,10 +52,9 @@ public class Microflows
 		IMendixObject result = (IMendixObject)Core.microflowCall("Demo.FillChart").withParams(params).execute(context);
 		return result == null ? null : demo.proxies.Chart.initialize(context, result);
 	}
-	public static void recordTemperature(IContext context, java.lang.Long _offset, java.lang.String _key, java.lang.String _value)
+	public static void recordTemperature(IContext context, java.lang.String _key, java.lang.String _value)
 	{
 		Map<java.lang.String, Object> params = new HashMap<>();
-		params.put("offset", _offset);
 		params.put("key", _key);
 		params.put("value", _value);
 		Core.microflowCall("Demo.RecordTemperature").withParams(params).execute(context);
