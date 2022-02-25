@@ -79,6 +79,13 @@ public class SendAsynchronous extends CustomJavaAction<java.lang.Boolean>
 		
 		kafkaProducer.send(record);
 		
+		if (!useCachedProducer) {
+			// if the cache is not used, Producers are created every time we call this JA
+			// and they must be closed; unclosed Producers communicate with the broker every 60s 
+			// to re-authenticate; for more information see sasl.kerberos.min.time.before.relogin
+			kafkaProducer.close();
+		}
+		
 		return true;
 		// END USER CODE
 	}

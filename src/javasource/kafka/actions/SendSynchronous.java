@@ -14,8 +14,6 @@ import java.util.concurrent.Future;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.clients.producer.RecordMetadata;
-import org.apache.kafka.common.header.Headers;
-import org.apache.kafka.common.header.internals.RecordHeader;
 import com.mendix.systemwideinterfaces.core.IContext;
 import com.mendix.webui.CustomJavaAction;
 import kafka.impl.KafkaProducerRepository;
@@ -93,6 +91,14 @@ public class SendSynchronous extends CustomJavaAction<IMendixObject>
 		result.setPartition(record.partition());
 		if (record.hasTimestamp())
 			result.setTimestamp(new Date(record.timestamp()));
+		
+		if (!useCachedProducer) {
+			// if the cache is not used, Producers are created every time we call this JA
+			// and they must be closed; unclosed Producers communicate with the broker every 60s 
+			// to re-authenticate; for more information see sasl.kerberos.min.time.before.relogin
+			kafkaProducer.close();
+		}
+		
 		return result.getMendixObject();
 		// END USER CODE
 	}
