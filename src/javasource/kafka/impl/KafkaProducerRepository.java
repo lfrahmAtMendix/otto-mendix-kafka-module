@@ -29,5 +29,6 @@ public class KafkaProducerRepository {
 		for (KafkaProducer<String, String> producer : producers.values()) {
 			producer.close();
 		}
+		producers.clear();
 	}
 }

@@ -1,14 +1,9 @@
 package system;
 
-import aQute.bnd.annotation.component.Component;
-import aQute.bnd.annotation.component.Reference;
-
 import com.mendix.core.actionmanagement.IActionRegistrator;
 
-@Component(immediate = true)
 public class UserActionsRegistrar
 {
-  @Reference
   public void registerActions(IActionRegistrator registrator)
   {
     registrator.bundleComponentLoaded();
@@ -31,6 +26,8 @@ public class UserActionsRegistrar
     registrator.registerUserAction(kafka.actions.StopAll.class);
     registrator.registerUserAction(kafka.actions.StopProcessor.class);
     registrator.registerUserAction(kafka.actions.StopProducer.class);
+    registrator.registerUserAction(kafka.actions.StopWatchingObjects.class);
+    registrator.registerUserAction(kafka.actions.WatchObjectForChange.class);
     registrator.registerUserAction(librarylogging.actions.AddLibraryLogListener.class);
     registrator.registerUserAction(librarylogging.actions.InitializeLogging.class);
     registrator.registerUserAction(librarylogging.actions.SetRootLevel.class);

@@ -20,5 +20,6 @@ public class KafkaConsumerRepository {
 		for (KafkaConsumerRunner consumer : consumers.values()) {
 			consumer.stop();
 		}
+		consumers.clear();
 	}
 }

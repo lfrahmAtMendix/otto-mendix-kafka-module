@@ -27,5 +27,6 @@ public class KafkaProcessorRepository {
 		for (KafkaProcessor processor : processors.values()) {
 			processor.close();
 		}
+		processors.clear();
 	}
 }

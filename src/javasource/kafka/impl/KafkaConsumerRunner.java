@@ -19,6 +19,7 @@ import com.mendix.systemwideinterfaces.core.IDataType;
 
 import kafka.proxies.CommitControl;
 import kafka.proxies.Consumer;
+import kafka.proxies.constants.Constants;
 
 public class KafkaConsumerRunner extends KafkaConfigurable implements Runnable {
 	private final AtomicBoolean stopped = new AtomicBoolean(false);
@@ -62,9 +63,18 @@ public class KafkaConsumerRunner extends KafkaConfigurable implements Runnable {
 				ConsumerRecords<String, String> records = consumer.poll(Duration.ofMillis(100));
 				for (ConsumerRecord<String, String> record : records) {
 					Map<String, Object> microflowParams = new HashMap<String, Object>();
-					microflowParams.put("Offset", record.offset());
-					microflowParams.put("Key", record.key());
-					microflowParams.put("Value", record.value());
+					if (this.onReceiveInputParameters.containsKey("Offset")) {
+						microflowParams.put("Offset", record.offset());
+					}
+					if (this.onReceiveInputParameters.containsKey("Key")) {
+						microflowParams.put("Key", record.key());
+					}
+					if (this.onReceiveInputParameters.containsKey("Value")) {
+						microflowParams.put("Value", record.value());
+					}
+					if (this.onReceiveInputParameters.containsKey("Partition")) {
+						microflowParams.put("Partition", record.partition());
+					}
 
 					for (Header header : record.headers()) {
 						try {
@@ -79,7 +89,7 @@ public class KafkaConsumerRunner extends KafkaConfigurable implements Runnable {
 					
 					IContext context = Core.createSystemContext();
 					try {
-						Core.execute(context, onReceiveMicroflow, microflowParams);	// throws CoreException
+						Core.microflowCall(onReceiveMicroflow).withParams(microflowParams).execute(context);	// throws CoreException
 						while (context.isInTransaction())
 							context.endTransaction();
 					} catch (Throwable e) {
@@ -88,17 +98,22 @@ public class KafkaConsumerRunner extends KafkaConfigurable implements Runnable {
 							while (context.isInTransaction())
 								context.endTransaction();
 						} catch (Exception ex) {};
-					} finally {
-						if (commitControl == CommitControl.CONSUMER) {
-							consumer.commitSync();
-						}
-					}
+					} 
+				}
+				if (commitControl == CommitControl.CONSUMER) {
+					consumer.commitSync();
 				}
 			} catch (WakeupException e) {
 				// Ignore exception if closing
 				if (!stopped.get()) throw e;
 			} catch (Exception e) {
-				LOGGER.critical("An uncatched exception occurred on Kafka consumer " + name + " expect to have a consumer less.", e);
+				String msg = "An uncatched exception occurred on Kafka consumer " + name + " expect to (temporary) have a consumer less.";
+				if(Constants.getLogConsumerLostAsCritical()) {
+					LOGGER.critical(msg, e);
+				} else {
+					LOGGER.error(msg, e);
+				}
+				
 				try { Thread.sleep(30000); } catch (Exception ex) {}
 			}
 		}
