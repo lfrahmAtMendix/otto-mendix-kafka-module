@@ -23,7 +23,7 @@ public class Explorer
 		Explorer_Server("Kafka.Explorer_Server"),
 		Explorer_Consumer("Kafka.Explorer_Consumer");
 
-		private java.lang.String metaName;
+		private final java.lang.String metaName;
 
 		MemberNames(java.lang.String s)
 		{
@@ -39,15 +39,17 @@ public class Explorer
 
 	public Explorer(com.mendix.systemwideinterfaces.core.IContext context)
 	{
-		this(context, com.mendix.core.Core.instantiate(context, "Kafka.Explorer"));
+		this(context, com.mendix.core.Core.instantiate(context, entityName));
 	}
 
 	protected Explorer(com.mendix.systemwideinterfaces.core.IContext context, com.mendix.systemwideinterfaces.core.IMendixObject explorerMendixObject)
 	{
-		if (explorerMendixObject == null)
+		if (explorerMendixObject == null) {
 			throw new java.lang.IllegalArgumentException("The given object cannot be null.");
-		if (!com.mendix.core.Core.isSubClassOf("Kafka.Explorer", explorerMendixObject.getType()))
-			throw new java.lang.IllegalArgumentException("The given object is not a Kafka.Explorer");
+		}
+		if (!com.mendix.core.Core.isSubClassOf(entityName, explorerMendixObject.getType())) {
+			throw new java.lang.IllegalArgumentException(String.format("The given object is not a %s", entityName));
+		}	
 
 		this.explorerMendixObject = explorerMendixObject;
 		this.context = context;
@@ -65,6 +67,9 @@ public class Explorer
 	/**
 	 * Initialize a proxy using context (recommended). This context will be used for security checking when the get- and set-methods without context parameters are called.
 	 * The get- and set-methods with context parameter should be used when for instance sudo access is necessary (IContext.createSudoClone() can be used to obtain sudo access).
+	 * @param context The context to be used
+	 * @param mendixObject The Mendix object for the new instance
+	 * @return a new instance of this proxy class
 	 */
 	public static kafka.proxies.Explorer initialize(com.mendix.systemwideinterfaces.core.IContext context, com.mendix.systemwideinterfaces.core.IMendixObject mendixObject)
 	{
@@ -79,6 +84,7 @@ public class Explorer
 
 	/**
 	 * Commit the changes made on this proxy object.
+	 * @throws com.mendix.core.CoreException
 	 */
 	public final void commit() throws com.mendix.core.CoreException
 	{
@@ -87,6 +93,7 @@ public class Explorer
 
 	/**
 	 * Commit the changes made on this proxy object using the specified context.
+	 * @throws com.mendix.core.CoreException
 	 */
 	public final void commit(com.mendix.systemwideinterfaces.core.IContext context) throws com.mendix.core.CoreException
 	{
@@ -109,6 +116,7 @@ public class Explorer
 		com.mendix.core.Core.delete(context, getMendixObject());
 	}
 	/**
+	 * @throws com.mendix.core.CoreException
 	 * @return value of Explorer_Server
 	 */
 	public final kafka.proxies.Server getExplorer_Server() throws com.mendix.core.CoreException
@@ -119,13 +127,15 @@ public class Explorer
 	/**
 	 * @param context
 	 * @return value of Explorer_Server
+	 * @throws com.mendix.core.CoreException
 	 */
 	public final kafka.proxies.Server getExplorer_Server(com.mendix.systemwideinterfaces.core.IContext context) throws com.mendix.core.CoreException
 	{
 		kafka.proxies.Server result = null;
 		com.mendix.systemwideinterfaces.core.IMendixIdentifier identifier = getMendixObject().getValue(context, MemberNames.Explorer_Server.toString());
-		if (identifier != null)
+		if (identifier != null) {
 			result = kafka.proxies.Server.load(context, identifier);
+		}
 		return result;
 	}
 
@@ -145,13 +155,15 @@ public class Explorer
 	 */
 	public final void setExplorer_Server(com.mendix.systemwideinterfaces.core.IContext context, kafka.proxies.Server explorer_server)
 	{
-		if (explorer_server == null)
+		if (explorer_server == null) {
 			getMendixObject().setValue(context, MemberNames.Explorer_Server.toString(), null);
-		else
+		} else {
 			getMendixObject().setValue(context, MemberNames.Explorer_Server.toString(), explorer_server.getMendixObject().getId());
+		}
 	}
 
 	/**
+	 * @throws com.mendix.core.CoreException
 	 * @return value of Explorer_Consumer
 	 */
 	public final kafka.proxies.Consumer getExplorer_Consumer() throws com.mendix.core.CoreException
@@ -162,13 +174,15 @@ public class Explorer
 	/**
 	 * @param context
 	 * @return value of Explorer_Consumer
+	 * @throws com.mendix.core.CoreException
 	 */
 	public final kafka.proxies.Consumer getExplorer_Consumer(com.mendix.systemwideinterfaces.core.IContext context) throws com.mendix.core.CoreException
 	{
 		kafka.proxies.Consumer result = null;
 		com.mendix.systemwideinterfaces.core.IMendixIdentifier identifier = getMendixObject().getValue(context, MemberNames.Explorer_Consumer.toString());
-		if (identifier != null)
+		if (identifier != null) {
 			result = kafka.proxies.Consumer.load(context, identifier);
+		}
 		return result;
 	}
 
@@ -188,10 +202,11 @@ public class Explorer
 	 */
 	public final void setExplorer_Consumer(com.mendix.systemwideinterfaces.core.IContext context, kafka.proxies.Consumer explorer_consumer)
 	{
-		if (explorer_consumer == null)
+		if (explorer_consumer == null) {
 			getMendixObject().setValue(context, MemberNames.Explorer_Consumer.toString(), null);
-		else
+		} else {
 			getMendixObject().setValue(context, MemberNames.Explorer_Consumer.toString(), explorer_consumer.getMendixObject().getId());
+		}
 	}
 
 	/**
@@ -213,9 +228,9 @@ public class Explorer
 	@java.lang.Override
 	public boolean equals(Object obj)
 	{
-		if (obj == this)
+		if (obj == this) {
 			return true;
-
+		}
 		if (obj != null && getClass().equals(obj.getClass()))
 		{
 			final kafka.proxies.Explorer that = (kafka.proxies.Explorer) obj;
@@ -235,7 +250,7 @@ public class Explorer
 	 */
 	public static java.lang.String getType()
 	{
-		return "Kafka.Explorer";
+		return entityName;
 	}
 
 	/**

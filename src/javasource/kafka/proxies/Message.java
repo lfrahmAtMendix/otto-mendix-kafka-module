@@ -28,7 +28,7 @@ public class Message
 		Payload("Payload"),
 		Message_MessageOverview("Kafka.Message_MessageOverview");
 
-		private java.lang.String metaName;
+		private final java.lang.String metaName;
 
 		MemberNames(java.lang.String s)
 		{
@@ -44,15 +44,17 @@ public class Message
 
 	public Message(com.mendix.systemwideinterfaces.core.IContext context)
 	{
-		this(context, com.mendix.core.Core.instantiate(context, "Kafka.Message"));
+		this(context, com.mendix.core.Core.instantiate(context, entityName));
 	}
 
 	protected Message(com.mendix.systemwideinterfaces.core.IContext context, com.mendix.systemwideinterfaces.core.IMendixObject messageMendixObject)
 	{
-		if (messageMendixObject == null)
+		if (messageMendixObject == null) {
 			throw new java.lang.IllegalArgumentException("The given object cannot be null.");
-		if (!com.mendix.core.Core.isSubClassOf("Kafka.Message", messageMendixObject.getType()))
-			throw new java.lang.IllegalArgumentException("The given object is not a Kafka.Message");
+		}
+		if (!com.mendix.core.Core.isSubClassOf(entityName, messageMendixObject.getType())) {
+			throw new java.lang.IllegalArgumentException(String.format("The given object is not a %s", entityName));
+		}	
 
 		this.messageMendixObject = messageMendixObject;
 		this.context = context;
@@ -70,6 +72,9 @@ public class Message
 	/**
 	 * Initialize a proxy using context (recommended). This context will be used for security checking when the get- and set-methods without context parameters are called.
 	 * The get- and set-methods with context parameter should be used when for instance sudo access is necessary (IContext.createSudoClone() can be used to obtain sudo access).
+	 * @param context The context to be used
+	 * @param mendixObject The Mendix object for the new instance
+	 * @return a new instance of this proxy class
 	 */
 	public static kafka.proxies.Message initialize(com.mendix.systemwideinterfaces.core.IContext context, com.mendix.systemwideinterfaces.core.IMendixObject mendixObject)
 	{
@@ -84,6 +89,7 @@ public class Message
 
 	/**
 	 * Commit the changes made on this proxy object.
+	 * @throws com.mendix.core.CoreException
 	 */
 	public final void commit() throws com.mendix.core.CoreException
 	{
@@ -92,6 +98,7 @@ public class Message
 
 	/**
 	 * Commit the changes made on this proxy object using the specified context.
+	 * @throws com.mendix.core.CoreException
 	 */
 	public final void commit(com.mendix.systemwideinterfaces.core.IContext context) throws com.mendix.core.CoreException
 	{
@@ -330,6 +337,7 @@ public class Message
 	}
 
 	/**
+	 * @throws com.mendix.core.CoreException
 	 * @return value of Message_MessageOverview
 	 */
 	public final kafka.proxies.MessageOverview getMessage_MessageOverview() throws com.mendix.core.CoreException
@@ -340,13 +348,15 @@ public class Message
 	/**
 	 * @param context
 	 * @return value of Message_MessageOverview
+	 * @throws com.mendix.core.CoreException
 	 */
 	public final kafka.proxies.MessageOverview getMessage_MessageOverview(com.mendix.systemwideinterfaces.core.IContext context) throws com.mendix.core.CoreException
 	{
 		kafka.proxies.MessageOverview result = null;
 		com.mendix.systemwideinterfaces.core.IMendixIdentifier identifier = getMendixObject().getValue(context, MemberNames.Message_MessageOverview.toString());
-		if (identifier != null)
+		if (identifier != null) {
 			result = kafka.proxies.MessageOverview.load(context, identifier);
+		}
 		return result;
 	}
 
@@ -366,10 +376,11 @@ public class Message
 	 */
 	public final void setMessage_MessageOverview(com.mendix.systemwideinterfaces.core.IContext context, kafka.proxies.MessageOverview message_messageoverview)
 	{
-		if (message_messageoverview == null)
+		if (message_messageoverview == null) {
 			getMendixObject().setValue(context, MemberNames.Message_MessageOverview.toString(), null);
-		else
+		} else {
 			getMendixObject().setValue(context, MemberNames.Message_MessageOverview.toString(), message_messageoverview.getMendixObject().getId());
+		}
 	}
 
 	/**
@@ -391,9 +402,9 @@ public class Message
 	@java.lang.Override
 	public boolean equals(Object obj)
 	{
-		if (obj == this)
+		if (obj == this) {
 			return true;
-
+		}
 		if (obj != null && getClass().equals(obj.getClass()))
 		{
 			final kafka.proxies.Message that = (kafka.proxies.Message) obj;
@@ -413,7 +424,7 @@ public class Message
 	 */
 	public static java.lang.String getType()
 	{
-		return "Kafka.Message";
+		return entityName;
 	}
 
 	/**

@@ -26,7 +26,7 @@ public class Publisher
 		Publisher_Producer("Kafka.Publisher_Producer"),
 		Publisher_Server("Kafka.Publisher_Server");
 
-		private java.lang.String metaName;
+		private final java.lang.String metaName;
 
 		MemberNames(java.lang.String s)
 		{
@@ -42,15 +42,17 @@ public class Publisher
 
 	public Publisher(com.mendix.systemwideinterfaces.core.IContext context)
 	{
-		this(context, com.mendix.core.Core.instantiate(context, "Kafka.Publisher"));
+		this(context, com.mendix.core.Core.instantiate(context, entityName));
 	}
 
 	protected Publisher(com.mendix.systemwideinterfaces.core.IContext context, com.mendix.systemwideinterfaces.core.IMendixObject publisherMendixObject)
 	{
-		if (publisherMendixObject == null)
+		if (publisherMendixObject == null) {
 			throw new java.lang.IllegalArgumentException("The given object cannot be null.");
-		if (!com.mendix.core.Core.isSubClassOf("Kafka.Publisher", publisherMendixObject.getType()))
-			throw new java.lang.IllegalArgumentException("The given object is not a Kafka.Publisher");
+		}
+		if (!com.mendix.core.Core.isSubClassOf(entityName, publisherMendixObject.getType())) {
+			throw new java.lang.IllegalArgumentException(String.format("The given object is not a %s", entityName));
+		}	
 
 		this.publisherMendixObject = publisherMendixObject;
 		this.context = context;
@@ -68,6 +70,9 @@ public class Publisher
 	/**
 	 * Initialize a proxy using context (recommended). This context will be used for security checking when the get- and set-methods without context parameters are called.
 	 * The get- and set-methods with context parameter should be used when for instance sudo access is necessary (IContext.createSudoClone() can be used to obtain sudo access).
+	 * @param context The context to be used
+	 * @param mendixObject The Mendix object for the new instance
+	 * @return a new instance of this proxy class
 	 */
 	public static kafka.proxies.Publisher initialize(com.mendix.systemwideinterfaces.core.IContext context, com.mendix.systemwideinterfaces.core.IMendixObject mendixObject)
 	{
@@ -82,6 +87,7 @@ public class Publisher
 
 	/**
 	 * Commit the changes made on this proxy object.
+	 * @throws com.mendix.core.CoreException
 	 */
 	public final void commit() throws com.mendix.core.CoreException
 	{
@@ -90,6 +96,7 @@ public class Publisher
 
 	/**
 	 * Commit the changes made on this proxy object using the specified context.
+	 * @throws com.mendix.core.CoreException
 	 */
 	public final void commit(com.mendix.systemwideinterfaces.core.IContext context) throws com.mendix.core.CoreException
 	{
@@ -220,6 +227,7 @@ public class Publisher
 	}
 
 	/**
+	 * @throws com.mendix.core.CoreException
 	 * @return value of Publisher_Producer
 	 */
 	public final kafka.proxies.Producer getPublisher_Producer() throws com.mendix.core.CoreException
@@ -230,13 +238,15 @@ public class Publisher
 	/**
 	 * @param context
 	 * @return value of Publisher_Producer
+	 * @throws com.mendix.core.CoreException
 	 */
 	public final kafka.proxies.Producer getPublisher_Producer(com.mendix.systemwideinterfaces.core.IContext context) throws com.mendix.core.CoreException
 	{
 		kafka.proxies.Producer result = null;
 		com.mendix.systemwideinterfaces.core.IMendixIdentifier identifier = getMendixObject().getValue(context, MemberNames.Publisher_Producer.toString());
-		if (identifier != null)
+		if (identifier != null) {
 			result = kafka.proxies.Producer.load(context, identifier);
+		}
 		return result;
 	}
 
@@ -256,13 +266,15 @@ public class Publisher
 	 */
 	public final void setPublisher_Producer(com.mendix.systemwideinterfaces.core.IContext context, kafka.proxies.Producer publisher_producer)
 	{
-		if (publisher_producer == null)
+		if (publisher_producer == null) {
 			getMendixObject().setValue(context, MemberNames.Publisher_Producer.toString(), null);
-		else
+		} else {
 			getMendixObject().setValue(context, MemberNames.Publisher_Producer.toString(), publisher_producer.getMendixObject().getId());
+		}
 	}
 
 	/**
+	 * @throws com.mendix.core.CoreException
 	 * @return value of Publisher_Server
 	 */
 	public final kafka.proxies.Server getPublisher_Server() throws com.mendix.core.CoreException
@@ -273,13 +285,15 @@ public class Publisher
 	/**
 	 * @param context
 	 * @return value of Publisher_Server
+	 * @throws com.mendix.core.CoreException
 	 */
 	public final kafka.proxies.Server getPublisher_Server(com.mendix.systemwideinterfaces.core.IContext context) throws com.mendix.core.CoreException
 	{
 		kafka.proxies.Server result = null;
 		com.mendix.systemwideinterfaces.core.IMendixIdentifier identifier = getMendixObject().getValue(context, MemberNames.Publisher_Server.toString());
-		if (identifier != null)
+		if (identifier != null) {
 			result = kafka.proxies.Server.load(context, identifier);
+		}
 		return result;
 	}
 
@@ -299,10 +313,11 @@ public class Publisher
 	 */
 	public final void setPublisher_Server(com.mendix.systemwideinterfaces.core.IContext context, kafka.proxies.Server publisher_server)
 	{
-		if (publisher_server == null)
+		if (publisher_server == null) {
 			getMendixObject().setValue(context, MemberNames.Publisher_Server.toString(), null);
-		else
+		} else {
 			getMendixObject().setValue(context, MemberNames.Publisher_Server.toString(), publisher_server.getMendixObject().getId());
+		}
 	}
 
 	/**
@@ -324,9 +339,9 @@ public class Publisher
 	@java.lang.Override
 	public boolean equals(Object obj)
 	{
-		if (obj == this)
+		if (obj == this) {
 			return true;
-
+		}
 		if (obj != null && getClass().equals(obj.getClass()))
 		{
 			final kafka.proxies.Publisher that = (kafka.proxies.Publisher) obj;
@@ -346,7 +361,7 @@ public class Publisher
 	 */
 	public static java.lang.String getType()
 	{
-		return "Kafka.Publisher";
+		return entityName;
 	}
 
 	/**

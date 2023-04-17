@@ -25,7 +25,7 @@ public class DataSet
 		Sorting("Sorting"),
 		DataSet_ReportedTemperature("Demo.DataSet_ReportedTemperature");
 
-		private java.lang.String metaName;
+		private final java.lang.String metaName;
 
 		MemberNames(java.lang.String s)
 		{
@@ -41,15 +41,17 @@ public class DataSet
 
 	public DataSet(com.mendix.systemwideinterfaces.core.IContext context)
 	{
-		this(context, com.mendix.core.Core.instantiate(context, "Demo.DataSet"));
+		this(context, com.mendix.core.Core.instantiate(context, entityName));
 	}
 
 	protected DataSet(com.mendix.systemwideinterfaces.core.IContext context, com.mendix.systemwideinterfaces.core.IMendixObject dataSetMendixObject)
 	{
-		if (dataSetMendixObject == null)
+		if (dataSetMendixObject == null) {
 			throw new java.lang.IllegalArgumentException("The given object cannot be null.");
-		if (!com.mendix.core.Core.isSubClassOf("Demo.DataSet", dataSetMendixObject.getType()))
-			throw new java.lang.IllegalArgumentException("The given object is not a Demo.DataSet");
+		}
+		if (!com.mendix.core.Core.isSubClassOf(entityName, dataSetMendixObject.getType())) {
+			throw new java.lang.IllegalArgumentException(String.format("The given object is not a %s", entityName));
+		}	
 
 		this.dataSetMendixObject = dataSetMendixObject;
 		this.context = context;
@@ -67,6 +69,9 @@ public class DataSet
 	/**
 	 * Initialize a proxy using context (recommended). This context will be used for security checking when the get- and set-methods without context parameters are called.
 	 * The get- and set-methods with context parameter should be used when for instance sudo access is necessary (IContext.createSudoClone() can be used to obtain sudo access).
+	 * @param context The context to be used
+	 * @param mendixObject The Mendix object for the new instance
+	 * @return a new instance of this proxy class
 	 */
 	public static demo.proxies.DataSet initialize(com.mendix.systemwideinterfaces.core.IContext context, com.mendix.systemwideinterfaces.core.IMendixObject mendixObject)
 	{
@@ -81,6 +86,7 @@ public class DataSet
 
 	/**
 	 * Commit the changes made on this proxy object.
+	 * @throws com.mendix.core.CoreException
 	 */
 	public final void commit() throws com.mendix.core.CoreException
 	{
@@ -89,6 +95,7 @@ public class DataSet
 
 	/**
 	 * Commit the changes made on this proxy object using the specified context.
+	 * @throws com.mendix.core.CoreException
 	 */
 	public final void commit(com.mendix.systemwideinterfaces.core.IContext context) throws com.mendix.core.CoreException
 	{
@@ -219,6 +226,7 @@ public class DataSet
 	}
 
 	/**
+	 * @throws com.mendix.core.CoreException
 	 * @return value of DataSet_ReportedTemperature
 	 */
 	public final java.util.List<demo.proxies.ReportedTemperature> getDataSet_ReportedTemperature() throws com.mendix.core.CoreException
@@ -229,16 +237,19 @@ public class DataSet
 	/**
 	 * @param context
 	 * @return value of DataSet_ReportedTemperature
+	 * @throws com.mendix.core.CoreException
 	 */
 	@SuppressWarnings("unchecked")
 	public final java.util.List<demo.proxies.ReportedTemperature> getDataSet_ReportedTemperature(com.mendix.systemwideinterfaces.core.IContext context) throws com.mendix.core.CoreException
 	{
-		java.util.List<demo.proxies.ReportedTemperature> result = new java.util.ArrayList<demo.proxies.ReportedTemperature>();
+		java.util.List<demo.proxies.ReportedTemperature> result = new java.util.ArrayList<>();
 		Object valueObject = getMendixObject().getValue(context, MemberNames.DataSet_ReportedTemperature.toString());
-		if (valueObject == null)
+		if (valueObject == null) {
 			return result;
-		for (com.mendix.systemwideinterfaces.core.IMendixObject mendixObject : com.mendix.core.Core.retrieveIdList(context, (java.util.List<com.mendix.systemwideinterfaces.core.IMendixIdentifier>) valueObject))
+		}
+		for (com.mendix.systemwideinterfaces.core.IMendixObject mendixObject : com.mendix.core.Core.retrieveIdList(context, (java.util.List<com.mendix.systemwideinterfaces.core.IMendixIdentifier>) valueObject)) {
 			result.add(demo.proxies.ReportedTemperature.initialize(context, mendixObject));
+		}
 		return result;
 	}
 
@@ -258,9 +269,11 @@ public class DataSet
 	 */
 	public final void setDataSet_ReportedTemperature(com.mendix.systemwideinterfaces.core.IContext context, java.util.List<demo.proxies.ReportedTemperature> dataset_reportedtemperature)
 	{
-		java.util.List<com.mendix.systemwideinterfaces.core.IMendixIdentifier> identifiers = new java.util.ArrayList<com.mendix.systemwideinterfaces.core.IMendixIdentifier>();
-		for (demo.proxies.ReportedTemperature proxyObject : dataset_reportedtemperature)
-			identifiers.add(proxyObject.getMendixObject().getId());
+		var identifiers = dataset_reportedtemperature
+			.stream()
+			.map(proxyObject -> proxyObject.getMendixObject().getId())
+			.collect(java.util.stream.Collectors.toList());
+		
 		getMendixObject().setValue(context, MemberNames.DataSet_ReportedTemperature.toString(), identifiers);
 	}
 
@@ -283,9 +296,9 @@ public class DataSet
 	@java.lang.Override
 	public boolean equals(Object obj)
 	{
-		if (obj == this)
+		if (obj == this) {
 			return true;
-
+		}
 		if (obj != null && getClass().equals(obj.getClass()))
 		{
 			final demo.proxies.DataSet that = (demo.proxies.DataSet) obj;
@@ -305,7 +318,7 @@ public class DataSet
 	 */
 	public static java.lang.String getType()
 	{
-		return "Demo.DataSet";
+		return entityName;
 	}
 
 	/**

@@ -37,7 +37,7 @@ public class StartProducer extends CustomJavaAction<java.lang.Boolean>
 	@java.lang.Override
 	public java.lang.Boolean executeAction() throws Exception
 	{
-		this.producer = __producer == null ? null : kafka.proxies.Producer.initialize(getContext(), __producer);
+		this.producer = this.__producer == null ? null : kafka.proxies.Producer.initialize(getContext(), __producer);
 
 		// BEGIN USER CODE
 		KafkaProducer<String, String> kafkaProducer = new KafkaProducer<String, String>(
@@ -50,6 +50,7 @@ public class StartProducer extends CustomJavaAction<java.lang.Boolean>
 
 	/**
 	 * Returns a string representation of this action
+	 * @return a string representation of this action
 	 */
 	@java.lang.Override
 	public java.lang.String toString()

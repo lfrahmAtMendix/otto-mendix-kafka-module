@@ -58,7 +58,7 @@ public class Config
 		ssl_trustmanager_algorithm("ssl_trustmanager_algorithm"),
 		Server_Config("Kafka.Server_Config");
 
-		private java.lang.String metaName;
+		private final java.lang.String metaName;
 
 		MemberNames(java.lang.String s)
 		{
@@ -74,15 +74,17 @@ public class Config
 
 	public Config(com.mendix.systemwideinterfaces.core.IContext context)
 	{
-		this(context, com.mendix.core.Core.instantiate(context, "Kafka.Config"));
+		this(context, com.mendix.core.Core.instantiate(context, entityName));
 	}
 
 	protected Config(com.mendix.systemwideinterfaces.core.IContext context, com.mendix.systemwideinterfaces.core.IMendixObject configMendixObject)
 	{
-		if (configMendixObject == null)
+		if (configMendixObject == null) {
 			throw new java.lang.IllegalArgumentException("The given object cannot be null.");
-		if (!com.mendix.core.Core.isSubClassOf("Kafka.Config", configMendixObject.getType()))
-			throw new java.lang.IllegalArgumentException("The given object is not a Kafka.Config");
+		}
+		if (!com.mendix.core.Core.isSubClassOf(entityName, configMendixObject.getType())) {
+			throw new java.lang.IllegalArgumentException(String.format("The given object is not a %s", entityName));
+		}	
 
 		this.configMendixObject = configMendixObject;
 		this.context = context;
@@ -100,12 +102,15 @@ public class Config
 	/**
 	 * Initialize a proxy using context (recommended). This context will be used for security checking when the get- and set-methods without context parameters are called.
 	 * The get- and set-methods with context parameter should be used when for instance sudo access is necessary (IContext.createSudoClone() can be used to obtain sudo access).
+	 * @param context The context to be used
+	 * @param mendixObject The Mendix object for the new instance
+	 * @return a new instance of this proxy class
 	 */
 	public static kafka.proxies.Config initialize(com.mendix.systemwideinterfaces.core.IContext context, com.mendix.systemwideinterfaces.core.IMendixObject mendixObject)
 	{
-		if (com.mendix.core.Core.isSubClassOf("Kafka.StreamsConfig", mendixObject.getType()))
+		if (com.mendix.core.Core.isSubClassOf("Kafka.StreamsConfig", mendixObject.getType())) {
 			return kafka.proxies.StreamsConfig.initialize(context, mendixObject);
-
+		}
 		return new kafka.proxies.Config(context, mendixObject);
 	}
 
@@ -117,14 +122,16 @@ public class Config
 
 	public static java.util.List<? extends kafka.proxies.Config> load(com.mendix.systemwideinterfaces.core.IContext context, java.lang.String xpathConstraint) throws com.mendix.core.CoreException
 	{
-		java.util.List<kafka.proxies.Config> result = new java.util.ArrayList<kafka.proxies.Config>();
-		for (com.mendix.systemwideinterfaces.core.IMendixObject obj : com.mendix.core.Core.retrieveXPathQuery(context, "//Kafka.Config" + xpathConstraint))
-			result.add(kafka.proxies.Config.initialize(context, obj));
-		return result;
+		return com.mendix.core.Core.createXPathQuery(String.format("//%1$s%2$s", entityName, xpathConstraint))
+			.execute(context)
+			.stream()
+			.map(obj -> kafka.proxies.Config.initialize(context, obj))
+			.collect(java.util.stream.Collectors.toList());
 	}
 
 	/**
 	 * Commit the changes made on this proxy object.
+	 * @throws com.mendix.core.CoreException
 	 */
 	public final void commit() throws com.mendix.core.CoreException
 	{
@@ -133,6 +140,7 @@ public class Config
 
 	/**
 	 * Commit the changes made on this proxy object using the specified context.
+	 * @throws com.mendix.core.CoreException
 	 */
 	public final void commit(com.mendix.systemwideinterfaces.core.IContext context) throws com.mendix.core.CoreException
 	{
@@ -1343,6 +1351,7 @@ public class Config
 	}
 
 	/**
+	 * @throws com.mendix.core.CoreException
 	 * @return value of Server_Config
 	 */
 	public final kafka.proxies.Server getServer_Config() throws com.mendix.core.CoreException
@@ -1353,13 +1362,15 @@ public class Config
 	/**
 	 * @param context
 	 * @return value of Server_Config
+	 * @throws com.mendix.core.CoreException
 	 */
 	public final kafka.proxies.Server getServer_Config(com.mendix.systemwideinterfaces.core.IContext context) throws com.mendix.core.CoreException
 	{
 		kafka.proxies.Server result = null;
 		com.mendix.systemwideinterfaces.core.IMendixIdentifier identifier = getMendixObject().getValue(context, MemberNames.Server_Config.toString());
-		if (identifier != null)
+		if (identifier != null) {
 			result = kafka.proxies.Server.load(context, identifier);
+		}
 		return result;
 	}
 
@@ -1379,10 +1390,11 @@ public class Config
 	 */
 	public final void setServer_Config(com.mendix.systemwideinterfaces.core.IContext context, kafka.proxies.Server server_config)
 	{
-		if (server_config == null)
+		if (server_config == null) {
 			getMendixObject().setValue(context, MemberNames.Server_Config.toString(), null);
-		else
+		} else {
 			getMendixObject().setValue(context, MemberNames.Server_Config.toString(), server_config.getMendixObject().getId());
+		}
 	}
 
 	/**
@@ -1404,9 +1416,9 @@ public class Config
 	@java.lang.Override
 	public boolean equals(Object obj)
 	{
-		if (obj == this)
+		if (obj == this) {
 			return true;
-
+		}
 		if (obj != null && getClass().equals(obj.getClass()))
 		{
 			final kafka.proxies.Config that = (kafka.proxies.Config) obj;
@@ -1426,7 +1438,7 @@ public class Config
 	 */
 	public static java.lang.String getType()
 	{
-		return "Kafka.Config";
+		return entityName;
 	}
 
 	/**

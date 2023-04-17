@@ -31,7 +31,7 @@ public class Consumer
 		Consumer_Server("Kafka.Consumer_Server"),
 		Consumer_Microflows("Kafka.Consumer_Microflows");
 
-		private java.lang.String metaName;
+		private final java.lang.String metaName;
 
 		MemberNames(java.lang.String s)
 		{
@@ -47,15 +47,17 @@ public class Consumer
 
 	public Consumer(com.mendix.systemwideinterfaces.core.IContext context)
 	{
-		this(context, com.mendix.core.Core.instantiate(context, "Kafka.Consumer"));
+		this(context, com.mendix.core.Core.instantiate(context, entityName));
 	}
 
 	protected Consumer(com.mendix.systemwideinterfaces.core.IContext context, com.mendix.systemwideinterfaces.core.IMendixObject consumerMendixObject)
 	{
-		if (consumerMendixObject == null)
+		if (consumerMendixObject == null) {
 			throw new java.lang.IllegalArgumentException("The given object cannot be null.");
-		if (!com.mendix.core.Core.isSubClassOf("Kafka.Consumer", consumerMendixObject.getType()))
-			throw new java.lang.IllegalArgumentException("The given object is not a Kafka.Consumer");
+		}
+		if (!com.mendix.core.Core.isSubClassOf(entityName, consumerMendixObject.getType())) {
+			throw new java.lang.IllegalArgumentException(String.format("The given object is not a %s", entityName));
+		}	
 
 		this.consumerMendixObject = consumerMendixObject;
 		this.context = context;
@@ -73,6 +75,9 @@ public class Consumer
 	/**
 	 * Initialize a proxy using context (recommended). This context will be used for security checking when the get- and set-methods without context parameters are called.
 	 * The get- and set-methods with context parameter should be used when for instance sudo access is necessary (IContext.createSudoClone() can be used to obtain sudo access).
+	 * @param context The context to be used
+	 * @param mendixObject The Mendix object for the new instance
+	 * @return a new instance of this proxy class
 	 */
 	public static kafka.proxies.Consumer initialize(com.mendix.systemwideinterfaces.core.IContext context, com.mendix.systemwideinterfaces.core.IMendixObject mendixObject)
 	{
@@ -87,14 +92,16 @@ public class Consumer
 
 	public static java.util.List<kafka.proxies.Consumer> load(com.mendix.systemwideinterfaces.core.IContext context, java.lang.String xpathConstraint) throws com.mendix.core.CoreException
 	{
-		java.util.List<kafka.proxies.Consumer> result = new java.util.ArrayList<kafka.proxies.Consumer>();
-		for (com.mendix.systemwideinterfaces.core.IMendixObject obj : com.mendix.core.Core.retrieveXPathQuery(context, "//Kafka.Consumer" + xpathConstraint))
-			result.add(kafka.proxies.Consumer.initialize(context, obj));
-		return result;
+		return com.mendix.core.Core.createXPathQuery(String.format("//%1$s%2$s", entityName, xpathConstraint))
+			.execute(context)
+			.stream()
+			.map(obj -> kafka.proxies.Consumer.initialize(context, obj))
+			.collect(java.util.stream.Collectors.toList());
 	}
 
 	/**
 	 * Commit the changes made on this proxy object.
+	 * @throws com.mendix.core.CoreException
 	 */
 	public final void commit() throws com.mendix.core.CoreException
 	{
@@ -103,6 +110,7 @@ public class Consumer
 
 	/**
 	 * Commit the changes made on this proxy object using the specified context.
+	 * @throws com.mendix.core.CoreException
 	 */
 	public final void commit(com.mendix.systemwideinterfaces.core.IContext context) throws com.mendix.core.CoreException
 	{
@@ -248,9 +256,9 @@ public class Consumer
 	public final kafka.proxies.CommitControl getCommitControl(com.mendix.systemwideinterfaces.core.IContext context)
 	{
 		Object obj = getMendixObject().getValue(context, MemberNames.CommitControl.toString());
-		if (obj == null)
+		if (obj == null) {
 			return null;
-
+		}
 		return kafka.proxies.CommitControl.valueOf((java.lang.String) obj);
 	}
 
@@ -270,10 +278,11 @@ public class Consumer
 	 */
 	public final void setCommitControl(com.mendix.systemwideinterfaces.core.IContext context, kafka.proxies.CommitControl commitcontrol)
 	{
-		if (commitcontrol != null)
+		if (commitcontrol != null) {
 			getMendixObject().setValue(context, MemberNames.CommitControl.toString(), commitcontrol.toString());
-		else
+		} else {
 			getMendixObject().setValue(context, MemberNames.CommitControl.toString(), null);
+		}
 	}
 
 	/**
@@ -385,6 +394,7 @@ public class Consumer
 	}
 
 	/**
+	 * @throws com.mendix.core.CoreException
 	 * @return value of Consumer_ConsumerConfig
 	 */
 	public final kafka.proxies.ConsumerConfig getConsumer_ConsumerConfig() throws com.mendix.core.CoreException
@@ -395,13 +405,15 @@ public class Consumer
 	/**
 	 * @param context
 	 * @return value of Consumer_ConsumerConfig
+	 * @throws com.mendix.core.CoreException
 	 */
 	public final kafka.proxies.ConsumerConfig getConsumer_ConsumerConfig(com.mendix.systemwideinterfaces.core.IContext context) throws com.mendix.core.CoreException
 	{
 		kafka.proxies.ConsumerConfig result = null;
 		com.mendix.systemwideinterfaces.core.IMendixIdentifier identifier = getMendixObject().getValue(context, MemberNames.Consumer_ConsumerConfig.toString());
-		if (identifier != null)
+		if (identifier != null) {
 			result = kafka.proxies.ConsumerConfig.load(context, identifier);
+		}
 		return result;
 	}
 
@@ -421,13 +433,15 @@ public class Consumer
 	 */
 	public final void setConsumer_ConsumerConfig(com.mendix.systemwideinterfaces.core.IContext context, kafka.proxies.ConsumerConfig consumer_consumerconfig)
 	{
-		if (consumer_consumerconfig == null)
+		if (consumer_consumerconfig == null) {
 			getMendixObject().setValue(context, MemberNames.Consumer_ConsumerConfig.toString(), null);
-		else
+		} else {
 			getMendixObject().setValue(context, MemberNames.Consumer_ConsumerConfig.toString(), consumer_consumerconfig.getMendixObject().getId());
+		}
 	}
 
 	/**
+	 * @throws com.mendix.core.CoreException
 	 * @return value of Consumer_Server
 	 */
 	public final kafka.proxies.Server getConsumer_Server() throws com.mendix.core.CoreException
@@ -438,13 +452,15 @@ public class Consumer
 	/**
 	 * @param context
 	 * @return value of Consumer_Server
+	 * @throws com.mendix.core.CoreException
 	 */
 	public final kafka.proxies.Server getConsumer_Server(com.mendix.systemwideinterfaces.core.IContext context) throws com.mendix.core.CoreException
 	{
 		kafka.proxies.Server result = null;
 		com.mendix.systemwideinterfaces.core.IMendixIdentifier identifier = getMendixObject().getValue(context, MemberNames.Consumer_Server.toString());
-		if (identifier != null)
+		if (identifier != null) {
 			result = kafka.proxies.Server.load(context, identifier);
+		}
 		return result;
 	}
 
@@ -464,13 +480,15 @@ public class Consumer
 	 */
 	public final void setConsumer_Server(com.mendix.systemwideinterfaces.core.IContext context, kafka.proxies.Server consumer_server)
 	{
-		if (consumer_server == null)
+		if (consumer_server == null) {
 			getMendixObject().setValue(context, MemberNames.Consumer_Server.toString(), null);
-		else
+		} else {
 			getMendixObject().setValue(context, MemberNames.Consumer_Server.toString(), consumer_server.getMendixObject().getId());
+		}
 	}
 
 	/**
+	 * @throws com.mendix.core.CoreException
 	 * @return value of Consumer_Microflows
 	 */
 	public final mxmodelreflection.proxies.Microflows getConsumer_Microflows() throws com.mendix.core.CoreException
@@ -481,13 +499,15 @@ public class Consumer
 	/**
 	 * @param context
 	 * @return value of Consumer_Microflows
+	 * @throws com.mendix.core.CoreException
 	 */
 	public final mxmodelreflection.proxies.Microflows getConsumer_Microflows(com.mendix.systemwideinterfaces.core.IContext context) throws com.mendix.core.CoreException
 	{
 		mxmodelreflection.proxies.Microflows result = null;
 		com.mendix.systemwideinterfaces.core.IMendixIdentifier identifier = getMendixObject().getValue(context, MemberNames.Consumer_Microflows.toString());
-		if (identifier != null)
+		if (identifier != null) {
 			result = mxmodelreflection.proxies.Microflows.load(context, identifier);
+		}
 		return result;
 	}
 
@@ -507,10 +527,11 @@ public class Consumer
 	 */
 	public final void setConsumer_Microflows(com.mendix.systemwideinterfaces.core.IContext context, mxmodelreflection.proxies.Microflows consumer_microflows)
 	{
-		if (consumer_microflows == null)
+		if (consumer_microflows == null) {
 			getMendixObject().setValue(context, MemberNames.Consumer_Microflows.toString(), null);
-		else
+		} else {
 			getMendixObject().setValue(context, MemberNames.Consumer_Microflows.toString(), consumer_microflows.getMendixObject().getId());
+		}
 	}
 
 	/**
@@ -532,9 +553,9 @@ public class Consumer
 	@java.lang.Override
 	public boolean equals(Object obj)
 	{
-		if (obj == this)
+		if (obj == this) {
 			return true;
-
+		}
 		if (obj != null && getClass().equals(obj.getClass()))
 		{
 			final kafka.proxies.Consumer that = (kafka.proxies.Consumer) obj;
@@ -554,7 +575,7 @@ public class Consumer
 	 */
 	public static java.lang.String getType()
 	{
-		return "Kafka.Consumer";
+		return entityName;
 	}
 
 	/**

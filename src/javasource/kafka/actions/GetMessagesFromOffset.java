@@ -49,7 +49,7 @@ public class GetMessagesFromOffset extends CustomJavaAction<java.util.List<IMend
 	@java.lang.Override
 	public java.util.List<IMendixObject> executeAction() throws Exception
 	{
-		this.consumer = __consumer == null ? null : kafka.proxies.Consumer.initialize(getContext(), __consumer);
+		this.consumer = this.__consumer == null ? null : kafka.proxies.Consumer.initialize(getContext(), __consumer);
 
 		// BEGIN USER CODE
 		Properties kafkaProps = KafkaPropertiesFactory.getKafkaProperties(getContext(), consumer);
@@ -95,6 +95,7 @@ public class GetMessagesFromOffset extends CustomJavaAction<java.util.List<IMend
 
 	/**
 	 * Returns a string representation of this action
+	 * @return a string representation of this action
 	 */
 	@java.lang.Override
 	public java.lang.String toString()

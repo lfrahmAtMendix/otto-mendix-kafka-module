@@ -26,7 +26,7 @@ public class Server
 		Server_TrustStore("Kafka.Server_TrustStore"),
 		Server_KeyStore("Kafka.Server_KeyStore");
 
-		private java.lang.String metaName;
+		private final java.lang.String metaName;
 
 		MemberNames(java.lang.String s)
 		{
@@ -42,15 +42,17 @@ public class Server
 
 	public Server(com.mendix.systemwideinterfaces.core.IContext context)
 	{
-		this(context, com.mendix.core.Core.instantiate(context, "Kafka.Server"));
+		this(context, com.mendix.core.Core.instantiate(context, entityName));
 	}
 
 	protected Server(com.mendix.systemwideinterfaces.core.IContext context, com.mendix.systemwideinterfaces.core.IMendixObject serverMendixObject)
 	{
-		if (serverMendixObject == null)
+		if (serverMendixObject == null) {
 			throw new java.lang.IllegalArgumentException("The given object cannot be null.");
-		if (!com.mendix.core.Core.isSubClassOf("Kafka.Server", serverMendixObject.getType()))
-			throw new java.lang.IllegalArgumentException("The given object is not a Kafka.Server");
+		}
+		if (!com.mendix.core.Core.isSubClassOf(entityName, serverMendixObject.getType())) {
+			throw new java.lang.IllegalArgumentException(String.format("The given object is not a %s", entityName));
+		}	
 
 		this.serverMendixObject = serverMendixObject;
 		this.context = context;
@@ -68,6 +70,9 @@ public class Server
 	/**
 	 * Initialize a proxy using context (recommended). This context will be used for security checking when the get- and set-methods without context parameters are called.
 	 * The get- and set-methods with context parameter should be used when for instance sudo access is necessary (IContext.createSudoClone() can be used to obtain sudo access).
+	 * @param context The context to be used
+	 * @param mendixObject The Mendix object for the new instance
+	 * @return a new instance of this proxy class
 	 */
 	public static kafka.proxies.Server initialize(com.mendix.systemwideinterfaces.core.IContext context, com.mendix.systemwideinterfaces.core.IMendixObject mendixObject)
 	{
@@ -82,14 +87,16 @@ public class Server
 
 	public static java.util.List<kafka.proxies.Server> load(com.mendix.systemwideinterfaces.core.IContext context, java.lang.String xpathConstraint) throws com.mendix.core.CoreException
 	{
-		java.util.List<kafka.proxies.Server> result = new java.util.ArrayList<kafka.proxies.Server>();
-		for (com.mendix.systemwideinterfaces.core.IMendixObject obj : com.mendix.core.Core.retrieveXPathQuery(context, "//Kafka.Server" + xpathConstraint))
-			result.add(kafka.proxies.Server.initialize(context, obj));
-		return result;
+		return com.mendix.core.Core.createXPathQuery(String.format("//%1$s%2$s", entityName, xpathConstraint))
+			.execute(context)
+			.stream()
+			.map(obj -> kafka.proxies.Server.initialize(context, obj))
+			.collect(java.util.stream.Collectors.toList());
 	}
 
 	/**
 	 * Commit the changes made on this proxy object.
+	 * @throws com.mendix.core.CoreException
 	 */
 	public final void commit() throws com.mendix.core.CoreException
 	{
@@ -98,6 +105,7 @@ public class Server
 
 	/**
 	 * Commit the changes made on this proxy object using the specified context.
+	 * @throws com.mendix.core.CoreException
 	 */
 	public final void commit(com.mendix.systemwideinterfaces.core.IContext context) throws com.mendix.core.CoreException
 	{
@@ -192,6 +200,7 @@ public class Server
 	}
 
 	/**
+	 * @throws com.mendix.core.CoreException
 	 * @return value of Server_Config
 	 */
 	public final kafka.proxies.Config getServer_Config() throws com.mendix.core.CoreException
@@ -202,13 +211,15 @@ public class Server
 	/**
 	 * @param context
 	 * @return value of Server_Config
+	 * @throws com.mendix.core.CoreException
 	 */
 	public final kafka.proxies.Config getServer_Config(com.mendix.systemwideinterfaces.core.IContext context) throws com.mendix.core.CoreException
 	{
 		kafka.proxies.Config result = null;
 		com.mendix.systemwideinterfaces.core.IMendixIdentifier identifier = getMendixObject().getValue(context, MemberNames.Server_Config.toString());
-		if (identifier != null)
+		if (identifier != null) {
 			result = kafka.proxies.Config.load(context, identifier);
+		}
 		return result;
 	}
 
@@ -228,13 +239,15 @@ public class Server
 	 */
 	public final void setServer_Config(com.mendix.systemwideinterfaces.core.IContext context, kafka.proxies.Config server_config)
 	{
-		if (server_config == null)
+		if (server_config == null) {
 			getMendixObject().setValue(context, MemberNames.Server_Config.toString(), null);
-		else
+		} else {
 			getMendixObject().setValue(context, MemberNames.Server_Config.toString(), server_config.getMendixObject().getId());
+		}
 	}
 
 	/**
+	 * @throws com.mendix.core.CoreException
 	 * @return value of Server_TrustStore
 	 */
 	public final kafka.proxies.KeyStore getServer_TrustStore() throws com.mendix.core.CoreException
@@ -245,13 +258,15 @@ public class Server
 	/**
 	 * @param context
 	 * @return value of Server_TrustStore
+	 * @throws com.mendix.core.CoreException
 	 */
 	public final kafka.proxies.KeyStore getServer_TrustStore(com.mendix.systemwideinterfaces.core.IContext context) throws com.mendix.core.CoreException
 	{
 		kafka.proxies.KeyStore result = null;
 		com.mendix.systemwideinterfaces.core.IMendixIdentifier identifier = getMendixObject().getValue(context, MemberNames.Server_TrustStore.toString());
-		if (identifier != null)
+		if (identifier != null) {
 			result = kafka.proxies.KeyStore.load(context, identifier);
+		}
 		return result;
 	}
 
@@ -271,13 +286,15 @@ public class Server
 	 */
 	public final void setServer_TrustStore(com.mendix.systemwideinterfaces.core.IContext context, kafka.proxies.KeyStore server_truststore)
 	{
-		if (server_truststore == null)
+		if (server_truststore == null) {
 			getMendixObject().setValue(context, MemberNames.Server_TrustStore.toString(), null);
-		else
+		} else {
 			getMendixObject().setValue(context, MemberNames.Server_TrustStore.toString(), server_truststore.getMendixObject().getId());
+		}
 	}
 
 	/**
+	 * @throws com.mendix.core.CoreException
 	 * @return value of Server_KeyStore
 	 */
 	public final kafka.proxies.KeyStore getServer_KeyStore() throws com.mendix.core.CoreException
@@ -288,13 +305,15 @@ public class Server
 	/**
 	 * @param context
 	 * @return value of Server_KeyStore
+	 * @throws com.mendix.core.CoreException
 	 */
 	public final kafka.proxies.KeyStore getServer_KeyStore(com.mendix.systemwideinterfaces.core.IContext context) throws com.mendix.core.CoreException
 	{
 		kafka.proxies.KeyStore result = null;
 		com.mendix.systemwideinterfaces.core.IMendixIdentifier identifier = getMendixObject().getValue(context, MemberNames.Server_KeyStore.toString());
-		if (identifier != null)
+		if (identifier != null) {
 			result = kafka.proxies.KeyStore.load(context, identifier);
+		}
 		return result;
 	}
 
@@ -314,10 +333,11 @@ public class Server
 	 */
 	public final void setServer_KeyStore(com.mendix.systemwideinterfaces.core.IContext context, kafka.proxies.KeyStore server_keystore)
 	{
-		if (server_keystore == null)
+		if (server_keystore == null) {
 			getMendixObject().setValue(context, MemberNames.Server_KeyStore.toString(), null);
-		else
+		} else {
 			getMendixObject().setValue(context, MemberNames.Server_KeyStore.toString(), server_keystore.getMendixObject().getId());
+		}
 	}
 
 	/**
@@ -339,9 +359,9 @@ public class Server
 	@java.lang.Override
 	public boolean equals(Object obj)
 	{
-		if (obj == this)
+		if (obj == this) {
 			return true;
-
+		}
 		if (obj != null && getClass().equals(obj.getClass()))
 		{
 			final kafka.proxies.Server that = (kafka.proxies.Server) obj;
@@ -361,7 +381,7 @@ public class Server
 	 */
 	public static java.lang.String getType()
 	{
-		return "Kafka.Server";
+		return entityName;
 	}
 
 	/**

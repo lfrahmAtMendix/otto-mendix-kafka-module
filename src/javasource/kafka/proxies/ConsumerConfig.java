@@ -42,7 +42,7 @@ public class ConsumerConfig
 		fetch_max_wait_ms("fetch_max_wait_ms"),
 		Consumer_ConsumerConfig("Kafka.Consumer_ConsumerConfig");
 
-		private java.lang.String metaName;
+		private final java.lang.String metaName;
 
 		MemberNames(java.lang.String s)
 		{
@@ -58,15 +58,17 @@ public class ConsumerConfig
 
 	public ConsumerConfig(com.mendix.systemwideinterfaces.core.IContext context)
 	{
-		this(context, com.mendix.core.Core.instantiate(context, "Kafka.ConsumerConfig"));
+		this(context, com.mendix.core.Core.instantiate(context, entityName));
 	}
 
 	protected ConsumerConfig(com.mendix.systemwideinterfaces.core.IContext context, com.mendix.systemwideinterfaces.core.IMendixObject consumerConfigMendixObject)
 	{
-		if (consumerConfigMendixObject == null)
+		if (consumerConfigMendixObject == null) {
 			throw new java.lang.IllegalArgumentException("The given object cannot be null.");
-		if (!com.mendix.core.Core.isSubClassOf("Kafka.ConsumerConfig", consumerConfigMendixObject.getType()))
-			throw new java.lang.IllegalArgumentException("The given object is not a Kafka.ConsumerConfig");
+		}
+		if (!com.mendix.core.Core.isSubClassOf(entityName, consumerConfigMendixObject.getType())) {
+			throw new java.lang.IllegalArgumentException(String.format("The given object is not a %s", entityName));
+		}	
 
 		this.consumerConfigMendixObject = consumerConfigMendixObject;
 		this.context = context;
@@ -84,6 +86,9 @@ public class ConsumerConfig
 	/**
 	 * Initialize a proxy using context (recommended). This context will be used for security checking when the get- and set-methods without context parameters are called.
 	 * The get- and set-methods with context parameter should be used when for instance sudo access is necessary (IContext.createSudoClone() can be used to obtain sudo access).
+	 * @param context The context to be used
+	 * @param mendixObject The Mendix object for the new instance
+	 * @return a new instance of this proxy class
 	 */
 	public static kafka.proxies.ConsumerConfig initialize(com.mendix.systemwideinterfaces.core.IContext context, com.mendix.systemwideinterfaces.core.IMendixObject mendixObject)
 	{
@@ -98,14 +103,16 @@ public class ConsumerConfig
 
 	public static java.util.List<kafka.proxies.ConsumerConfig> load(com.mendix.systemwideinterfaces.core.IContext context, java.lang.String xpathConstraint) throws com.mendix.core.CoreException
 	{
-		java.util.List<kafka.proxies.ConsumerConfig> result = new java.util.ArrayList<kafka.proxies.ConsumerConfig>();
-		for (com.mendix.systemwideinterfaces.core.IMendixObject obj : com.mendix.core.Core.retrieveXPathQuery(context, "//Kafka.ConsumerConfig" + xpathConstraint))
-			result.add(kafka.proxies.ConsumerConfig.initialize(context, obj));
-		return result;
+		return com.mendix.core.Core.createXPathQuery(String.format("//%1$s%2$s", entityName, xpathConstraint))
+			.execute(context)
+			.stream()
+			.map(obj -> kafka.proxies.ConsumerConfig.initialize(context, obj))
+			.collect(java.util.stream.Collectors.toList());
 	}
 
 	/**
 	 * Commit the changes made on this proxy object.
+	 * @throws com.mendix.core.CoreException
 	 */
 	public final void commit() throws com.mendix.core.CoreException
 	{
@@ -114,6 +121,7 @@ public class ConsumerConfig
 
 	/**
 	 * Commit the changes made on this proxy object using the specified context.
+	 * @throws com.mendix.core.CoreException
 	 */
 	public final void commit(com.mendix.systemwideinterfaces.core.IContext context) throws com.mendix.core.CoreException
 	{
@@ -748,6 +756,7 @@ public class ConsumerConfig
 	}
 
 	/**
+	 * @throws com.mendix.core.CoreException
 	 * @return value of Consumer_ConsumerConfig
 	 */
 	public final kafka.proxies.Consumer getConsumer_ConsumerConfig() throws com.mendix.core.CoreException
@@ -758,13 +767,15 @@ public class ConsumerConfig
 	/**
 	 * @param context
 	 * @return value of Consumer_ConsumerConfig
+	 * @throws com.mendix.core.CoreException
 	 */
 	public final kafka.proxies.Consumer getConsumer_ConsumerConfig(com.mendix.systemwideinterfaces.core.IContext context) throws com.mendix.core.CoreException
 	{
 		kafka.proxies.Consumer result = null;
 		com.mendix.systemwideinterfaces.core.IMendixIdentifier identifier = getMendixObject().getValue(context, MemberNames.Consumer_ConsumerConfig.toString());
-		if (identifier != null)
+		if (identifier != null) {
 			result = kafka.proxies.Consumer.load(context, identifier);
+		}
 		return result;
 	}
 
@@ -784,10 +795,11 @@ public class ConsumerConfig
 	 */
 	public final void setConsumer_ConsumerConfig(com.mendix.systemwideinterfaces.core.IContext context, kafka.proxies.Consumer consumer_consumerconfig)
 	{
-		if (consumer_consumerconfig == null)
+		if (consumer_consumerconfig == null) {
 			getMendixObject().setValue(context, MemberNames.Consumer_ConsumerConfig.toString(), null);
-		else
+		} else {
 			getMendixObject().setValue(context, MemberNames.Consumer_ConsumerConfig.toString(), consumer_consumerconfig.getMendixObject().getId());
+		}
 	}
 
 	/**
@@ -809,9 +821,9 @@ public class ConsumerConfig
 	@java.lang.Override
 	public boolean equals(Object obj)
 	{
-		if (obj == this)
+		if (obj == this) {
 			return true;
-
+		}
 		if (obj != null && getClass().equals(obj.getClass()))
 		{
 			final kafka.proxies.ConsumerConfig that = (kafka.proxies.ConsumerConfig) obj;
@@ -831,7 +843,7 @@ public class ConsumerConfig
 	 */
 	public static java.lang.String getType()
 	{
-		return "Kafka.ConsumerConfig";
+		return entityName;
 	}
 
 	/**

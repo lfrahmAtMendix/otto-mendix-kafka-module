@@ -37,7 +37,7 @@ public class GetPosition extends CustomJavaAction<java.lang.Long>
 	@java.lang.Override
 	public java.lang.Long executeAction() throws Exception
 	{
-		this.consumer = __consumer == null ? null : kafka.proxies.Consumer.initialize(getContext(), __consumer);
+		this.consumer = this.__consumer == null ? null : kafka.proxies.Consumer.initialize(getContext(), __consumer);
 
 		// BEGIN USER CODE
 		Properties kafkaProps = KafkaPropertiesFactory.getKafkaProperties(getContext(), consumer);
@@ -58,6 +58,7 @@ public class GetPosition extends CustomJavaAction<java.lang.Long>
 
 	/**
 	 * Returns a string representation of this action
+	 * @return a string representation of this action
 	 */
 	@java.lang.Override
 	public java.lang.String toString()

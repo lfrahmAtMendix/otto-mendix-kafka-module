@@ -27,7 +27,7 @@ public class KeyStore extends system.proxies.FileDocument
 		Server_TrustStore("Kafka.Server_TrustStore"),
 		Server_KeyStore("Kafka.Server_KeyStore");
 
-		private java.lang.String metaName;
+		private final java.lang.String metaName;
 
 		MemberNames(java.lang.String s)
 		{
@@ -43,14 +43,15 @@ public class KeyStore extends system.proxies.FileDocument
 
 	public KeyStore(com.mendix.systemwideinterfaces.core.IContext context)
 	{
-		this(context, com.mendix.core.Core.instantiate(context, "Kafka.KeyStore"));
+		this(context, com.mendix.core.Core.instantiate(context, entityName));
 	}
 
 	protected KeyStore(com.mendix.systemwideinterfaces.core.IContext context, com.mendix.systemwideinterfaces.core.IMendixObject keyStoreMendixObject)
 	{
 		super(context, keyStoreMendixObject);
-		if (!com.mendix.core.Core.isSubClassOf("Kafka.KeyStore", keyStoreMendixObject.getType()))
-			throw new java.lang.IllegalArgumentException("The given object is not a Kafka.KeyStore");
+		if (!com.mendix.core.Core.isSubClassOf(entityName, keyStoreMendixObject.getType())) {
+			throw new java.lang.IllegalArgumentException(String.format("The given object is not a %s", entityName));
+		}	
 	}
 
 	/**
@@ -65,6 +66,9 @@ public class KeyStore extends system.proxies.FileDocument
 	/**
 	 * Initialize a proxy using context (recommended). This context will be used for security checking when the get- and set-methods without context parameters are called.
 	 * The get- and set-methods with context parameter should be used when for instance sudo access is necessary (IContext.createSudoClone() can be used to obtain sudo access).
+	 * @param context The context to be used
+	 * @param mendixObject The Mendix object for the new instance
+	 * @return a new instance of this proxy class
 	 */
 	public static kafka.proxies.KeyStore initialize(com.mendix.systemwideinterfaces.core.IContext context, com.mendix.systemwideinterfaces.core.IMendixObject mendixObject)
 	{
@@ -79,10 +83,11 @@ public class KeyStore extends system.proxies.FileDocument
 
 	public static java.util.List<kafka.proxies.KeyStore> load(com.mendix.systemwideinterfaces.core.IContext context, java.lang.String xpathConstraint) throws com.mendix.core.CoreException
 	{
-		java.util.List<kafka.proxies.KeyStore> result = new java.util.ArrayList<kafka.proxies.KeyStore>();
-		for (com.mendix.systemwideinterfaces.core.IMendixObject obj : com.mendix.core.Core.retrieveXPathQuery(context, "//Kafka.KeyStore" + xpathConstraint))
-			result.add(kafka.proxies.KeyStore.initialize(context, obj));
-		return result;
+		return com.mendix.core.Core.createXPathQuery(String.format("//%1$s%2$s", entityName, xpathConstraint))
+			.execute(context)
+			.stream()
+			.map(obj -> kafka.proxies.KeyStore.initialize(context, obj))
+			.collect(java.util.stream.Collectors.toList());
 	}
 
 	/**
@@ -158,6 +163,7 @@ public class KeyStore extends system.proxies.FileDocument
 	}
 
 	/**
+	 * @throws com.mendix.core.CoreException
 	 * @return value of Server_TrustStore
 	 */
 	public final kafka.proxies.Server getServer_TrustStore() throws com.mendix.core.CoreException
@@ -168,13 +174,15 @@ public class KeyStore extends system.proxies.FileDocument
 	/**
 	 * @param context
 	 * @return value of Server_TrustStore
+	 * @throws com.mendix.core.CoreException
 	 */
 	public final kafka.proxies.Server getServer_TrustStore(com.mendix.systemwideinterfaces.core.IContext context) throws com.mendix.core.CoreException
 	{
 		kafka.proxies.Server result = null;
 		com.mendix.systemwideinterfaces.core.IMendixIdentifier identifier = getMendixObject().getValue(context, MemberNames.Server_TrustStore.toString());
-		if (identifier != null)
+		if (identifier != null) {
 			result = kafka.proxies.Server.load(context, identifier);
+		}
 		return result;
 	}
 
@@ -194,13 +202,15 @@ public class KeyStore extends system.proxies.FileDocument
 	 */
 	public final void setServer_TrustStore(com.mendix.systemwideinterfaces.core.IContext context, kafka.proxies.Server server_truststore)
 	{
-		if (server_truststore == null)
+		if (server_truststore == null) {
 			getMendixObject().setValue(context, MemberNames.Server_TrustStore.toString(), null);
-		else
+		} else {
 			getMendixObject().setValue(context, MemberNames.Server_TrustStore.toString(), server_truststore.getMendixObject().getId());
+		}
 	}
 
 	/**
+	 * @throws com.mendix.core.CoreException
 	 * @return value of Server_KeyStore
 	 */
 	public final kafka.proxies.Server getServer_KeyStore() throws com.mendix.core.CoreException
@@ -211,13 +221,15 @@ public class KeyStore extends system.proxies.FileDocument
 	/**
 	 * @param context
 	 * @return value of Server_KeyStore
+	 * @throws com.mendix.core.CoreException
 	 */
 	public final kafka.proxies.Server getServer_KeyStore(com.mendix.systemwideinterfaces.core.IContext context) throws com.mendix.core.CoreException
 	{
 		kafka.proxies.Server result = null;
 		com.mendix.systemwideinterfaces.core.IMendixIdentifier identifier = getMendixObject().getValue(context, MemberNames.Server_KeyStore.toString());
-		if (identifier != null)
+		if (identifier != null) {
 			result = kafka.proxies.Server.load(context, identifier);
+		}
 		return result;
 	}
 
@@ -237,18 +249,19 @@ public class KeyStore extends system.proxies.FileDocument
 	 */
 	public final void setServer_KeyStore(com.mendix.systemwideinterfaces.core.IContext context, kafka.proxies.Server server_keystore)
 	{
-		if (server_keystore == null)
+		if (server_keystore == null) {
 			getMendixObject().setValue(context, MemberNames.Server_KeyStore.toString(), null);
-		else
+		} else {
 			getMendixObject().setValue(context, MemberNames.Server_KeyStore.toString(), server_keystore.getMendixObject().getId());
+		}
 	}
 
 	@java.lang.Override
 	public boolean equals(Object obj)
 	{
-		if (obj == this)
+		if (obj == this) {
 			return true;
-
+		}
 		if (obj != null && getClass().equals(obj.getClass()))
 		{
 			final kafka.proxies.KeyStore that = (kafka.proxies.KeyStore) obj;
@@ -268,7 +281,7 @@ public class KeyStore extends system.proxies.FileDocument
 	 */
 	public static java.lang.String getType()
 	{
-		return "Kafka.KeyStore";
+		return entityName;
 	}
 
 	/**

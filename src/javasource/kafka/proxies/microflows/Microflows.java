@@ -7,13 +7,19 @@ package kafka.proxies.microflows;
 import java.util.HashMap;
 import java.util.Map;
 import com.mendix.core.Core;
-import com.mendix.core.CoreException;
-import com.mendix.systemwideinterfaces.MendixRuntimeException;
 import com.mendix.systemwideinterfaces.core.IContext;
 import com.mendix.systemwideinterfaces.core.IMendixObject;
 
 public class Microflows
 {
+	/**
+	 * @deprecated
+	 * The default constructor of the Microflows class should not be used.
+	 * Use the static microflow invocation methods instead.
+	 */
+	@java.lang.Deprecated(since = "9.12", forRemoval = true)
+	public Microflows() {}
+
 	// These are the microflows for the Kafka module
 	public static void aCr_KafkaConsumer(IContext context, kafka.proxies.Consumer _kafkaConsumer)
 	{
@@ -72,14 +78,13 @@ public class Microflows
 		params.put("Topic", _topic == null ? null : _topic.getMendixObject());
 		params.put("Explorer", _explorer == null ? null : _explorer.getMendixObject());
 		java.util.List<IMendixObject> objs = Core.microflowCall("Kafka.DS_GetDetailedPartitions").withParams(params).execute(context);
-		java.util.List<kafka.proxies.Partition> result = null;
-		if (objs != null)
-		{
-			result = new java.util.ArrayList<>();
-			for (IMendixObject obj : objs)
-				result.add(kafka.proxies.Partition.initialize(context, obj));
+		if (objs == null) {
+			return null;
+		} else {
+			return objs.stream()
+				.map(obj -> kafka.proxies.Partition.initialize(context, obj))
+				.collect(java.util.stream.Collectors.toList());
 		}
-		return result;
 	}
 	public static kafka.proxies.Explorer dS_GetExplorer(IContext context, kafka.proxies.Server _server)
 	{
@@ -107,14 +112,13 @@ public class Microflows
 		Map<java.lang.String, Object> params = new HashMap<>();
 		params.put("Server", _server == null ? null : _server.getMendixObject());
 		java.util.List<IMendixObject> objs = Core.microflowCall("Kafka.DS_GetSelectableConsumers").withParams(params).execute(context);
-		java.util.List<kafka.proxies.Consumer> result = null;
-		if (objs != null)
-		{
-			result = new java.util.ArrayList<>();
-			for (IMendixObject obj : objs)
-				result.add(kafka.proxies.Consumer.initialize(context, obj));
+		if (objs == null) {
+			return null;
+		} else {
+			return objs.stream()
+				.map(obj -> kafka.proxies.Consumer.initialize(context, obj))
+				.collect(java.util.stream.Collectors.toList());
 		}
-		return result;
 	}
 	public static void example_OnReceiveMicroflow(IContext context, java.lang.Long _offset, java.lang.String _key, java.lang.String _value, java.lang.String _messageType, java.lang.Long _partition)
 	{

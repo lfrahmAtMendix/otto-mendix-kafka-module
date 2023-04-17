@@ -41,12 +41,13 @@ public class GetPartitionOffsets extends CustomJavaAction<java.lang.Boolean>
 	@java.lang.Override
 	public java.lang.Boolean executeAction() throws Exception
 	{
-		this.partitions = new java.util.ArrayList<kafka.proxies.Partition>();
-		if (__partitions != null)
-			for (IMendixObject __partitionsElement : __partitions)
-				this.partitions.add(kafka.proxies.Partition.initialize(getContext(), __partitionsElement));
+		this.partitions = java.util.Optional.ofNullable(this.__partitions)
+			.orElse(java.util.Collections.emptyList())
+			.stream()
+			.map(__partitionsElement -> kafka.proxies.Partition.initialize(getContext(), __partitionsElement))
+			.collect(java.util.stream.Collectors.toList());
 
-		this.consumer = __consumer == null ? null : kafka.proxies.Consumer.initialize(getContext(), __consumer);
+		this.consumer = this.__consumer == null ? null : kafka.proxies.Consumer.initialize(getContext(), __consumer);
 
 		// BEGIN USER CODE
 		Properties kafkaProps = KafkaPropertiesFactory.getKafkaProperties(getContext(), consumer);
@@ -89,6 +90,7 @@ public class GetPartitionOffsets extends CustomJavaAction<java.lang.Boolean>
 
 	/**
 	 * Returns a string representation of this action
+	 * @return a string representation of this action
 	 */
 	@java.lang.Override
 	public java.lang.String toString()

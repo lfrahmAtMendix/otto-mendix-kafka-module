@@ -42,7 +42,7 @@ public class StartProcessor extends CustomJavaAction<java.lang.Boolean>
 	@java.lang.Override
 	public java.lang.Boolean executeAction() throws Exception
 	{
-		this.configuration = __configuration == null ? null : kafka.proxies.StreamsConfig.initialize(getContext(), __configuration);
+		this.configuration = this.__configuration == null ? null : kafka.proxies.StreamsConfig.initialize(getContext(), __configuration);
 
 		// BEGIN USER CODE
 		KafkaProcessor processor = new KafkaProcessor(this.configuration.getMendixObject(), 
@@ -56,6 +56,7 @@ public class StartProcessor extends CustomJavaAction<java.lang.Boolean>
 
 	/**
 	 * Returns a string representation of this action
+	 * @return a string representation of this action
 	 */
 	@java.lang.Override
 	public java.lang.String toString()

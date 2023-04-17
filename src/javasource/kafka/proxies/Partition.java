@@ -26,7 +26,7 @@ public class Partition
 		Position("Position"),
 		Partition_Topic("Kafka.Partition_Topic");
 
-		private java.lang.String metaName;
+		private final java.lang.String metaName;
 
 		MemberNames(java.lang.String s)
 		{
@@ -42,15 +42,17 @@ public class Partition
 
 	public Partition(com.mendix.systemwideinterfaces.core.IContext context)
 	{
-		this(context, com.mendix.core.Core.instantiate(context, "Kafka.Partition"));
+		this(context, com.mendix.core.Core.instantiate(context, entityName));
 	}
 
 	protected Partition(com.mendix.systemwideinterfaces.core.IContext context, com.mendix.systemwideinterfaces.core.IMendixObject partitionMendixObject)
 	{
-		if (partitionMendixObject == null)
+		if (partitionMendixObject == null) {
 			throw new java.lang.IllegalArgumentException("The given object cannot be null.");
-		if (!com.mendix.core.Core.isSubClassOf("Kafka.Partition", partitionMendixObject.getType()))
-			throw new java.lang.IllegalArgumentException("The given object is not a Kafka.Partition");
+		}
+		if (!com.mendix.core.Core.isSubClassOf(entityName, partitionMendixObject.getType())) {
+			throw new java.lang.IllegalArgumentException(String.format("The given object is not a %s", entityName));
+		}	
 
 		this.partitionMendixObject = partitionMendixObject;
 		this.context = context;
@@ -68,6 +70,9 @@ public class Partition
 	/**
 	 * Initialize a proxy using context (recommended). This context will be used for security checking when the get- and set-methods without context parameters are called.
 	 * The get- and set-methods with context parameter should be used when for instance sudo access is necessary (IContext.createSudoClone() can be used to obtain sudo access).
+	 * @param context The context to be used
+	 * @param mendixObject The Mendix object for the new instance
+	 * @return a new instance of this proxy class
 	 */
 	public static kafka.proxies.Partition initialize(com.mendix.systemwideinterfaces.core.IContext context, com.mendix.systemwideinterfaces.core.IMendixObject mendixObject)
 	{
@@ -82,6 +87,7 @@ public class Partition
 
 	/**
 	 * Commit the changes made on this proxy object.
+	 * @throws com.mendix.core.CoreException
 	 */
 	public final void commit() throws com.mendix.core.CoreException
 	{
@@ -90,6 +96,7 @@ public class Partition
 
 	/**
 	 * Commit the changes made on this proxy object using the specified context.
+	 * @throws com.mendix.core.CoreException
 	 */
 	public final void commit(com.mendix.systemwideinterfaces.core.IContext context) throws com.mendix.core.CoreException
 	{
@@ -256,6 +263,7 @@ public class Partition
 	}
 
 	/**
+	 * @throws com.mendix.core.CoreException
 	 * @return value of Partition_Topic
 	 */
 	public final kafka.proxies.Topic getPartition_Topic() throws com.mendix.core.CoreException
@@ -266,13 +274,15 @@ public class Partition
 	/**
 	 * @param context
 	 * @return value of Partition_Topic
+	 * @throws com.mendix.core.CoreException
 	 */
 	public final kafka.proxies.Topic getPartition_Topic(com.mendix.systemwideinterfaces.core.IContext context) throws com.mendix.core.CoreException
 	{
 		kafka.proxies.Topic result = null;
 		com.mendix.systemwideinterfaces.core.IMendixIdentifier identifier = getMendixObject().getValue(context, MemberNames.Partition_Topic.toString());
-		if (identifier != null)
+		if (identifier != null) {
 			result = kafka.proxies.Topic.load(context, identifier);
+		}
 		return result;
 	}
 
@@ -292,10 +302,11 @@ public class Partition
 	 */
 	public final void setPartition_Topic(com.mendix.systemwideinterfaces.core.IContext context, kafka.proxies.Topic partition_topic)
 	{
-		if (partition_topic == null)
+		if (partition_topic == null) {
 			getMendixObject().setValue(context, MemberNames.Partition_Topic.toString(), null);
-		else
+		} else {
 			getMendixObject().setValue(context, MemberNames.Partition_Topic.toString(), partition_topic.getMendixObject().getId());
+		}
 	}
 
 	/**
@@ -317,9 +328,9 @@ public class Partition
 	@java.lang.Override
 	public boolean equals(Object obj)
 	{
-		if (obj == this)
+		if (obj == this) {
 			return true;
-
+		}
 		if (obj != null && getClass().equals(obj.getClass()))
 		{
 			final kafka.proxies.Partition that = (kafka.proxies.Partition) obj;
@@ -339,7 +350,7 @@ public class Partition
 	 */
 	public static java.lang.String getType()
 	{
-		return "Kafka.Partition";
+		return entityName;
 	}
 
 	/**

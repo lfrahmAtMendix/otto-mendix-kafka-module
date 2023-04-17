@@ -49,12 +49,13 @@ public class SendAsynchronous extends CustomJavaAction<java.lang.Boolean>
 	@java.lang.Override
 	public java.lang.Boolean executeAction() throws Exception
 	{
-		this.producer = __producer == null ? null : kafka.proxies.Producer.initialize(getContext(), __producer);
+		this.producer = this.__producer == null ? null : kafka.proxies.Producer.initialize(getContext(), __producer);
 
-		this.headers = new java.util.ArrayList<kafka.proxies.Header>();
-		if (__headers != null)
-			for (IMendixObject __headersElement : __headers)
-				this.headers.add(kafka.proxies.Header.initialize(getContext(), __headersElement));
+		this.headers = java.util.Optional.ofNullable(this.__headers)
+			.orElse(java.util.Collections.emptyList())
+			.stream()
+			.map(__headersElement -> kafka.proxies.Header.initialize(getContext(), __headersElement))
+			.collect(java.util.stream.Collectors.toList());
 
 		// BEGIN USER CODE
 		KafkaProducer<String, String>  kafkaProducer;
@@ -92,6 +93,7 @@ public class SendAsynchronous extends CustomJavaAction<java.lang.Boolean>
 
 	/**
 	 * Returns a string representation of this action
+	 * @return a string representation of this action
 	 */
 	@java.lang.Override
 	public java.lang.String toString()

@@ -24,7 +24,7 @@ public class Topic
 		Partitions("Partitions"),
 		Topic_Explorer("Kafka.Topic_Explorer");
 
-		private java.lang.String metaName;
+		private final java.lang.String metaName;
 
 		MemberNames(java.lang.String s)
 		{
@@ -40,15 +40,17 @@ public class Topic
 
 	public Topic(com.mendix.systemwideinterfaces.core.IContext context)
 	{
-		this(context, com.mendix.core.Core.instantiate(context, "Kafka.Topic"));
+		this(context, com.mendix.core.Core.instantiate(context, entityName));
 	}
 
 	protected Topic(com.mendix.systemwideinterfaces.core.IContext context, com.mendix.systemwideinterfaces.core.IMendixObject topicMendixObject)
 	{
-		if (topicMendixObject == null)
+		if (topicMendixObject == null) {
 			throw new java.lang.IllegalArgumentException("The given object cannot be null.");
-		if (!com.mendix.core.Core.isSubClassOf("Kafka.Topic", topicMendixObject.getType()))
-			throw new java.lang.IllegalArgumentException("The given object is not a Kafka.Topic");
+		}
+		if (!com.mendix.core.Core.isSubClassOf(entityName, topicMendixObject.getType())) {
+			throw new java.lang.IllegalArgumentException(String.format("The given object is not a %s", entityName));
+		}	
 
 		this.topicMendixObject = topicMendixObject;
 		this.context = context;
@@ -66,6 +68,9 @@ public class Topic
 	/**
 	 * Initialize a proxy using context (recommended). This context will be used for security checking when the get- and set-methods without context parameters are called.
 	 * The get- and set-methods with context parameter should be used when for instance sudo access is necessary (IContext.createSudoClone() can be used to obtain sudo access).
+	 * @param context The context to be used
+	 * @param mendixObject The Mendix object for the new instance
+	 * @return a new instance of this proxy class
 	 */
 	public static kafka.proxies.Topic initialize(com.mendix.systemwideinterfaces.core.IContext context, com.mendix.systemwideinterfaces.core.IMendixObject mendixObject)
 	{
@@ -80,6 +85,7 @@ public class Topic
 
 	/**
 	 * Commit the changes made on this proxy object.
+	 * @throws com.mendix.core.CoreException
 	 */
 	public final void commit() throws com.mendix.core.CoreException
 	{
@@ -88,6 +94,7 @@ public class Topic
 
 	/**
 	 * Commit the changes made on this proxy object using the specified context.
+	 * @throws com.mendix.core.CoreException
 	 */
 	public final void commit(com.mendix.systemwideinterfaces.core.IContext context) throws com.mendix.core.CoreException
 	{
@@ -182,6 +189,7 @@ public class Topic
 	}
 
 	/**
+	 * @throws com.mendix.core.CoreException
 	 * @return value of Topic_Explorer
 	 */
 	public final kafka.proxies.Explorer getTopic_Explorer() throws com.mendix.core.CoreException
@@ -192,13 +200,15 @@ public class Topic
 	/**
 	 * @param context
 	 * @return value of Topic_Explorer
+	 * @throws com.mendix.core.CoreException
 	 */
 	public final kafka.proxies.Explorer getTopic_Explorer(com.mendix.systemwideinterfaces.core.IContext context) throws com.mendix.core.CoreException
 	{
 		kafka.proxies.Explorer result = null;
 		com.mendix.systemwideinterfaces.core.IMendixIdentifier identifier = getMendixObject().getValue(context, MemberNames.Topic_Explorer.toString());
-		if (identifier != null)
+		if (identifier != null) {
 			result = kafka.proxies.Explorer.load(context, identifier);
+		}
 		return result;
 	}
 
@@ -218,10 +228,11 @@ public class Topic
 	 */
 	public final void setTopic_Explorer(com.mendix.systemwideinterfaces.core.IContext context, kafka.proxies.Explorer topic_explorer)
 	{
-		if (topic_explorer == null)
+		if (topic_explorer == null) {
 			getMendixObject().setValue(context, MemberNames.Topic_Explorer.toString(), null);
-		else
+		} else {
 			getMendixObject().setValue(context, MemberNames.Topic_Explorer.toString(), topic_explorer.getMendixObject().getId());
+		}
 	}
 
 	/**
@@ -243,9 +254,9 @@ public class Topic
 	@java.lang.Override
 	public boolean equals(Object obj)
 	{
-		if (obj == this)
+		if (obj == this) {
 			return true;
-
+		}
 		if (obj != null && getClass().equals(obj.getClass()))
 		{
 			final kafka.proxies.Topic that = (kafka.proxies.Topic) obj;
@@ -265,7 +276,7 @@ public class Topic
 	 */
 	public static java.lang.String getType()
 	{
-		return "Kafka.Topic";
+		return entityName;
 	}
 
 	/**

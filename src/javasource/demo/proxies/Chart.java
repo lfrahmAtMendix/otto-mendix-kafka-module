@@ -22,7 +22,7 @@ public class Chart
 	{
 		Chart_DataSet("Demo.Chart_DataSet");
 
-		private java.lang.String metaName;
+		private final java.lang.String metaName;
 
 		MemberNames(java.lang.String s)
 		{
@@ -38,15 +38,17 @@ public class Chart
 
 	public Chart(com.mendix.systemwideinterfaces.core.IContext context)
 	{
-		this(context, com.mendix.core.Core.instantiate(context, "Demo.Chart"));
+		this(context, com.mendix.core.Core.instantiate(context, entityName));
 	}
 
 	protected Chart(com.mendix.systemwideinterfaces.core.IContext context, com.mendix.systemwideinterfaces.core.IMendixObject chartMendixObject)
 	{
-		if (chartMendixObject == null)
+		if (chartMendixObject == null) {
 			throw new java.lang.IllegalArgumentException("The given object cannot be null.");
-		if (!com.mendix.core.Core.isSubClassOf("Demo.Chart", chartMendixObject.getType()))
-			throw new java.lang.IllegalArgumentException("The given object is not a Demo.Chart");
+		}
+		if (!com.mendix.core.Core.isSubClassOf(entityName, chartMendixObject.getType())) {
+			throw new java.lang.IllegalArgumentException(String.format("The given object is not a %s", entityName));
+		}	
 
 		this.chartMendixObject = chartMendixObject;
 		this.context = context;
@@ -64,6 +66,9 @@ public class Chart
 	/**
 	 * Initialize a proxy using context (recommended). This context will be used for security checking when the get- and set-methods without context parameters are called.
 	 * The get- and set-methods with context parameter should be used when for instance sudo access is necessary (IContext.createSudoClone() can be used to obtain sudo access).
+	 * @param context The context to be used
+	 * @param mendixObject The Mendix object for the new instance
+	 * @return a new instance of this proxy class
 	 */
 	public static demo.proxies.Chart initialize(com.mendix.systemwideinterfaces.core.IContext context, com.mendix.systemwideinterfaces.core.IMendixObject mendixObject)
 	{
@@ -78,6 +83,7 @@ public class Chart
 
 	/**
 	 * Commit the changes made on this proxy object.
+	 * @throws com.mendix.core.CoreException
 	 */
 	public final void commit() throws com.mendix.core.CoreException
 	{
@@ -86,6 +92,7 @@ public class Chart
 
 	/**
 	 * Commit the changes made on this proxy object using the specified context.
+	 * @throws com.mendix.core.CoreException
 	 */
 	public final void commit(com.mendix.systemwideinterfaces.core.IContext context) throws com.mendix.core.CoreException
 	{
@@ -108,6 +115,7 @@ public class Chart
 		com.mendix.core.Core.delete(context, getMendixObject());
 	}
 	/**
+	 * @throws com.mendix.core.CoreException
 	 * @return value of Chart_DataSet
 	 */
 	public final java.util.List<demo.proxies.DataSet> getChart_DataSet() throws com.mendix.core.CoreException
@@ -118,16 +126,19 @@ public class Chart
 	/**
 	 * @param context
 	 * @return value of Chart_DataSet
+	 * @throws com.mendix.core.CoreException
 	 */
 	@SuppressWarnings("unchecked")
 	public final java.util.List<demo.proxies.DataSet> getChart_DataSet(com.mendix.systemwideinterfaces.core.IContext context) throws com.mendix.core.CoreException
 	{
-		java.util.List<demo.proxies.DataSet> result = new java.util.ArrayList<demo.proxies.DataSet>();
+		java.util.List<demo.proxies.DataSet> result = new java.util.ArrayList<>();
 		Object valueObject = getMendixObject().getValue(context, MemberNames.Chart_DataSet.toString());
-		if (valueObject == null)
+		if (valueObject == null) {
 			return result;
-		for (com.mendix.systemwideinterfaces.core.IMendixObject mendixObject : com.mendix.core.Core.retrieveIdList(context, (java.util.List<com.mendix.systemwideinterfaces.core.IMendixIdentifier>) valueObject))
+		}
+		for (com.mendix.systemwideinterfaces.core.IMendixObject mendixObject : com.mendix.core.Core.retrieveIdList(context, (java.util.List<com.mendix.systemwideinterfaces.core.IMendixIdentifier>) valueObject)) {
 			result.add(demo.proxies.DataSet.initialize(context, mendixObject));
+		}
 		return result;
 	}
 
@@ -147,9 +158,11 @@ public class Chart
 	 */
 	public final void setChart_DataSet(com.mendix.systemwideinterfaces.core.IContext context, java.util.List<demo.proxies.DataSet> chart_dataset)
 	{
-		java.util.List<com.mendix.systemwideinterfaces.core.IMendixIdentifier> identifiers = new java.util.ArrayList<com.mendix.systemwideinterfaces.core.IMendixIdentifier>();
-		for (demo.proxies.DataSet proxyObject : chart_dataset)
-			identifiers.add(proxyObject.getMendixObject().getId());
+		var identifiers = chart_dataset
+			.stream()
+			.map(proxyObject -> proxyObject.getMendixObject().getId())
+			.collect(java.util.stream.Collectors.toList());
+		
 		getMendixObject().setValue(context, MemberNames.Chart_DataSet.toString(), identifiers);
 	}
 
@@ -172,9 +185,9 @@ public class Chart
 	@java.lang.Override
 	public boolean equals(Object obj)
 	{
-		if (obj == this)
+		if (obj == this) {
 			return true;
-
+		}
 		if (obj != null && getClass().equals(obj.getClass()))
 		{
 			final demo.proxies.Chart that = (demo.proxies.Chart) obj;
@@ -194,7 +207,7 @@ public class Chart
 	 */
 	public static java.lang.String getType()
 	{
-		return "Demo.Chart";
+		return entityName;
 	}
 
 	/**

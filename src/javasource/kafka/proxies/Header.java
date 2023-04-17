@@ -25,7 +25,7 @@ public class Header
 		Header_Message("Kafka.Header_Message"),
 		Header_Publisher("Kafka.Header_Publisher");
 
-		private java.lang.String metaName;
+		private final java.lang.String metaName;
 
 		MemberNames(java.lang.String s)
 		{
@@ -41,15 +41,17 @@ public class Header
 
 	public Header(com.mendix.systemwideinterfaces.core.IContext context)
 	{
-		this(context, com.mendix.core.Core.instantiate(context, "Kafka.Header"));
+		this(context, com.mendix.core.Core.instantiate(context, entityName));
 	}
 
 	protected Header(com.mendix.systemwideinterfaces.core.IContext context, com.mendix.systemwideinterfaces.core.IMendixObject headerMendixObject)
 	{
-		if (headerMendixObject == null)
+		if (headerMendixObject == null) {
 			throw new java.lang.IllegalArgumentException("The given object cannot be null.");
-		if (!com.mendix.core.Core.isSubClassOf("Kafka.Header", headerMendixObject.getType()))
-			throw new java.lang.IllegalArgumentException("The given object is not a Kafka.Header");
+		}
+		if (!com.mendix.core.Core.isSubClassOf(entityName, headerMendixObject.getType())) {
+			throw new java.lang.IllegalArgumentException(String.format("The given object is not a %s", entityName));
+		}	
 
 		this.headerMendixObject = headerMendixObject;
 		this.context = context;
@@ -67,6 +69,9 @@ public class Header
 	/**
 	 * Initialize a proxy using context (recommended). This context will be used for security checking when the get- and set-methods without context parameters are called.
 	 * The get- and set-methods with context parameter should be used when for instance sudo access is necessary (IContext.createSudoClone() can be used to obtain sudo access).
+	 * @param context The context to be used
+	 * @param mendixObject The Mendix object for the new instance
+	 * @return a new instance of this proxy class
 	 */
 	public static kafka.proxies.Header initialize(com.mendix.systemwideinterfaces.core.IContext context, com.mendix.systemwideinterfaces.core.IMendixObject mendixObject)
 	{
@@ -81,6 +86,7 @@ public class Header
 
 	/**
 	 * Commit the changes made on this proxy object.
+	 * @throws com.mendix.core.CoreException
 	 */
 	public final void commit() throws com.mendix.core.CoreException
 	{
@@ -89,6 +95,7 @@ public class Header
 
 	/**
 	 * Commit the changes made on this proxy object using the specified context.
+	 * @throws com.mendix.core.CoreException
 	 */
 	public final void commit(com.mendix.systemwideinterfaces.core.IContext context) throws com.mendix.core.CoreException
 	{
@@ -183,6 +190,7 @@ public class Header
 	}
 
 	/**
+	 * @throws com.mendix.core.CoreException
 	 * @return value of Header_Message
 	 */
 	public final kafka.proxies.Message getHeader_Message() throws com.mendix.core.CoreException
@@ -193,13 +201,15 @@ public class Header
 	/**
 	 * @param context
 	 * @return value of Header_Message
+	 * @throws com.mendix.core.CoreException
 	 */
 	public final kafka.proxies.Message getHeader_Message(com.mendix.systemwideinterfaces.core.IContext context) throws com.mendix.core.CoreException
 	{
 		kafka.proxies.Message result = null;
 		com.mendix.systemwideinterfaces.core.IMendixIdentifier identifier = getMendixObject().getValue(context, MemberNames.Header_Message.toString());
-		if (identifier != null)
+		if (identifier != null) {
 			result = kafka.proxies.Message.load(context, identifier);
+		}
 		return result;
 	}
 
@@ -219,13 +229,15 @@ public class Header
 	 */
 	public final void setHeader_Message(com.mendix.systemwideinterfaces.core.IContext context, kafka.proxies.Message header_message)
 	{
-		if (header_message == null)
+		if (header_message == null) {
 			getMendixObject().setValue(context, MemberNames.Header_Message.toString(), null);
-		else
+		} else {
 			getMendixObject().setValue(context, MemberNames.Header_Message.toString(), header_message.getMendixObject().getId());
+		}
 	}
 
 	/**
+	 * @throws com.mendix.core.CoreException
 	 * @return value of Header_Publisher
 	 */
 	public final kafka.proxies.Publisher getHeader_Publisher() throws com.mendix.core.CoreException
@@ -236,13 +248,15 @@ public class Header
 	/**
 	 * @param context
 	 * @return value of Header_Publisher
+	 * @throws com.mendix.core.CoreException
 	 */
 	public final kafka.proxies.Publisher getHeader_Publisher(com.mendix.systemwideinterfaces.core.IContext context) throws com.mendix.core.CoreException
 	{
 		kafka.proxies.Publisher result = null;
 		com.mendix.systemwideinterfaces.core.IMendixIdentifier identifier = getMendixObject().getValue(context, MemberNames.Header_Publisher.toString());
-		if (identifier != null)
+		if (identifier != null) {
 			result = kafka.proxies.Publisher.load(context, identifier);
+		}
 		return result;
 	}
 
@@ -262,10 +276,11 @@ public class Header
 	 */
 	public final void setHeader_Publisher(com.mendix.systemwideinterfaces.core.IContext context, kafka.proxies.Publisher header_publisher)
 	{
-		if (header_publisher == null)
+		if (header_publisher == null) {
 			getMendixObject().setValue(context, MemberNames.Header_Publisher.toString(), null);
-		else
+		} else {
 			getMendixObject().setValue(context, MemberNames.Header_Publisher.toString(), header_publisher.getMendixObject().getId());
+		}
 	}
 
 	/**
@@ -287,9 +302,9 @@ public class Header
 	@java.lang.Override
 	public boolean equals(Object obj)
 	{
-		if (obj == this)
+		if (obj == this) {
 			return true;
-
+		}
 		if (obj != null && getClass().equals(obj.getClass()))
 		{
 			final kafka.proxies.Header that = (kafka.proxies.Header) obj;
@@ -309,7 +324,7 @@ public class Header
 	 */
 	public static java.lang.String getType()
 	{
-		return "Kafka.Header";
+		return entityName;
 	}
 
 	/**

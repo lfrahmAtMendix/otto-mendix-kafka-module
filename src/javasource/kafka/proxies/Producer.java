@@ -26,7 +26,7 @@ public class Producer
 		Producer_ProducerConfig("Kafka.Producer_ProducerConfig"),
 		Producer_Server("Kafka.Producer_Server");
 
-		private java.lang.String metaName;
+		private final java.lang.String metaName;
 
 		MemberNames(java.lang.String s)
 		{
@@ -42,15 +42,17 @@ public class Producer
 
 	public Producer(com.mendix.systemwideinterfaces.core.IContext context)
 	{
-		this(context, com.mendix.core.Core.instantiate(context, "Kafka.Producer"));
+		this(context, com.mendix.core.Core.instantiate(context, entityName));
 	}
 
 	protected Producer(com.mendix.systemwideinterfaces.core.IContext context, com.mendix.systemwideinterfaces.core.IMendixObject producerMendixObject)
 	{
-		if (producerMendixObject == null)
+		if (producerMendixObject == null) {
 			throw new java.lang.IllegalArgumentException("The given object cannot be null.");
-		if (!com.mendix.core.Core.isSubClassOf("Kafka.Producer", producerMendixObject.getType()))
-			throw new java.lang.IllegalArgumentException("The given object is not a Kafka.Producer");
+		}
+		if (!com.mendix.core.Core.isSubClassOf(entityName, producerMendixObject.getType())) {
+			throw new java.lang.IllegalArgumentException(String.format("The given object is not a %s", entityName));
+		}	
 
 		this.producerMendixObject = producerMendixObject;
 		this.context = context;
@@ -68,6 +70,9 @@ public class Producer
 	/**
 	 * Initialize a proxy using context (recommended). This context will be used for security checking when the get- and set-methods without context parameters are called.
 	 * The get- and set-methods with context parameter should be used when for instance sudo access is necessary (IContext.createSudoClone() can be used to obtain sudo access).
+	 * @param context The context to be used
+	 * @param mendixObject The Mendix object for the new instance
+	 * @return a new instance of this proxy class
 	 */
 	public static kafka.proxies.Producer initialize(com.mendix.systemwideinterfaces.core.IContext context, com.mendix.systemwideinterfaces.core.IMendixObject mendixObject)
 	{
@@ -82,14 +87,16 @@ public class Producer
 
 	public static java.util.List<kafka.proxies.Producer> load(com.mendix.systemwideinterfaces.core.IContext context, java.lang.String xpathConstraint) throws com.mendix.core.CoreException
 	{
-		java.util.List<kafka.proxies.Producer> result = new java.util.ArrayList<kafka.proxies.Producer>();
-		for (com.mendix.systemwideinterfaces.core.IMendixObject obj : com.mendix.core.Core.retrieveXPathQuery(context, "//Kafka.Producer" + xpathConstraint))
-			result.add(kafka.proxies.Producer.initialize(context, obj));
-		return result;
+		return com.mendix.core.Core.createXPathQuery(String.format("//%1$s%2$s", entityName, xpathConstraint))
+			.execute(context)
+			.stream()
+			.map(obj -> kafka.proxies.Producer.initialize(context, obj))
+			.collect(java.util.stream.Collectors.toList());
 	}
 
 	/**
 	 * Commit the changes made on this proxy object.
+	 * @throws com.mendix.core.CoreException
 	 */
 	public final void commit() throws com.mendix.core.CoreException
 	{
@@ -98,6 +105,7 @@ public class Producer
 
 	/**
 	 * Commit the changes made on this proxy object using the specified context.
+	 * @throws com.mendix.core.CoreException
 	 */
 	public final void commit(com.mendix.systemwideinterfaces.core.IContext context) throws com.mendix.core.CoreException
 	{
@@ -228,6 +236,7 @@ public class Producer
 	}
 
 	/**
+	 * @throws com.mendix.core.CoreException
 	 * @return value of Producer_ProducerConfig
 	 */
 	public final kafka.proxies.ProducerConfig getProducer_ProducerConfig() throws com.mendix.core.CoreException
@@ -238,13 +247,15 @@ public class Producer
 	/**
 	 * @param context
 	 * @return value of Producer_ProducerConfig
+	 * @throws com.mendix.core.CoreException
 	 */
 	public final kafka.proxies.ProducerConfig getProducer_ProducerConfig(com.mendix.systemwideinterfaces.core.IContext context) throws com.mendix.core.CoreException
 	{
 		kafka.proxies.ProducerConfig result = null;
 		com.mendix.systemwideinterfaces.core.IMendixIdentifier identifier = getMendixObject().getValue(context, MemberNames.Producer_ProducerConfig.toString());
-		if (identifier != null)
+		if (identifier != null) {
 			result = kafka.proxies.ProducerConfig.load(context, identifier);
+		}
 		return result;
 	}
 
@@ -264,13 +275,15 @@ public class Producer
 	 */
 	public final void setProducer_ProducerConfig(com.mendix.systemwideinterfaces.core.IContext context, kafka.proxies.ProducerConfig producer_producerconfig)
 	{
-		if (producer_producerconfig == null)
+		if (producer_producerconfig == null) {
 			getMendixObject().setValue(context, MemberNames.Producer_ProducerConfig.toString(), null);
-		else
+		} else {
 			getMendixObject().setValue(context, MemberNames.Producer_ProducerConfig.toString(), producer_producerconfig.getMendixObject().getId());
+		}
 	}
 
 	/**
+	 * @throws com.mendix.core.CoreException
 	 * @return value of Producer_Server
 	 */
 	public final kafka.proxies.Server getProducer_Server() throws com.mendix.core.CoreException
@@ -281,13 +294,15 @@ public class Producer
 	/**
 	 * @param context
 	 * @return value of Producer_Server
+	 * @throws com.mendix.core.CoreException
 	 */
 	public final kafka.proxies.Server getProducer_Server(com.mendix.systemwideinterfaces.core.IContext context) throws com.mendix.core.CoreException
 	{
 		kafka.proxies.Server result = null;
 		com.mendix.systemwideinterfaces.core.IMendixIdentifier identifier = getMendixObject().getValue(context, MemberNames.Producer_Server.toString());
-		if (identifier != null)
+		if (identifier != null) {
 			result = kafka.proxies.Server.load(context, identifier);
+		}
 		return result;
 	}
 
@@ -307,10 +322,11 @@ public class Producer
 	 */
 	public final void setProducer_Server(com.mendix.systemwideinterfaces.core.IContext context, kafka.proxies.Server producer_server)
 	{
-		if (producer_server == null)
+		if (producer_server == null) {
 			getMendixObject().setValue(context, MemberNames.Producer_Server.toString(), null);
-		else
+		} else {
 			getMendixObject().setValue(context, MemberNames.Producer_Server.toString(), producer_server.getMendixObject().getId());
+		}
 	}
 
 	/**
@@ -332,9 +348,9 @@ public class Producer
 	@java.lang.Override
 	public boolean equals(Object obj)
 	{
-		if (obj == this)
+		if (obj == this) {
 			return true;
-
+		}
 		if (obj != null && getClass().equals(obj.getClass()))
 		{
 			final kafka.proxies.Producer that = (kafka.proxies.Producer) obj;
@@ -354,7 +370,7 @@ public class Producer
 	 */
 	public static java.lang.String getType()
 	{
-		return "Kafka.Producer";
+		return entityName;
 	}
 
 	/**
