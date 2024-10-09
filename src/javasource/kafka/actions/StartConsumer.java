@@ -13,7 +13,9 @@ import com.mendix.systemwideinterfaces.core.IContext;
 import com.mendix.webui.CustomJavaAction;
 import kafka.impl.KafkaConsumerRepository;
 import kafka.impl.KafkaConsumerRunner;
+import kafka.impl.KafkaConsumerBinaryRunner;
 import kafka.impl.KafkaModule;
+import kafka.proxies.ValueType;
 import com.mendix.systemwideinterfaces.core.IMendixObject;
 
 /**
@@ -36,11 +38,20 @@ public class StartConsumer extends CustomJavaAction<java.lang.Boolean>
 		this.consumer = this.__consumer == null ? null : kafka.proxies.Consumer.initialize(getContext(), __consumer);
 
 		// BEGIN USER CODE
-		for (int i = 0; i < consumer.getConsumersPerInstance(); i++) {
-			KafkaConsumerRunner consumerRunner = new KafkaConsumerRunner(consumer, getContext()); 
-			KafkaConsumerRepository.put(consumer.getName() + "-" + i, consumerRunner);
-			new Thread(consumerRunner).start();
-			KafkaModule.LOGGER.info("Started Kafka consumer " + consumer.getName() + "-" + i);
+		if (this.consumer.getValueType(getContext()) == ValueType.String) {
+			for (int i = 0; i < consumer.getConsumersPerInstance(); i++) {
+				KafkaConsumerRunner consumerRunner = new KafkaConsumerRunner(consumer, getContext()); 
+				KafkaConsumerRepository.put(consumer.getName() + "-" + i, consumerRunner);
+				new Thread(consumerRunner).start();
+				KafkaModule.LOGGER.info("Started Kafka consumer " + consumer.getName() + "-" + i);
+			}
+		} else if (this.consumer.getValueType(getContext()) == ValueType.Binary) {
+			for (int i = 0; i < consumer.getConsumersPerInstance(); i++) {
+				KafkaConsumerBinaryRunner consumerRunner = new KafkaConsumerBinaryRunner(consumer, getContext()); 
+				KafkaConsumerRepository.put(consumer.getName() + "-" + i, consumerRunner);
+				new Thread(consumerRunner).start();
+				KafkaModule.LOGGER.info("Started Kafka consumer " + consumer.getName() + "-" + i);
+			}
 		}
 		
 		return true;

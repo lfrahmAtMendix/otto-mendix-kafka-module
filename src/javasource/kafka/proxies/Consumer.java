@@ -27,6 +27,7 @@ public class Consumer
 		ConsumersPerInstance("ConsumersPerInstance"),
 		Topics("Topics"),
 		OnReceiveMicroflow("OnReceiveMicroflow"),
+		ValueType("ValueType"),
 		Consumer_ConsumerConfig("Kafka.Consumer_ConsumerConfig"),
 		Consumer_Server("Kafka.Consumer_Server"),
 		Consumer_Microflows("Kafka.Consumer_Microflows");
@@ -391,6 +392,51 @@ public class Consumer
 	public final void setOnReceiveMicroflow(com.mendix.systemwideinterfaces.core.IContext context, java.lang.String onreceivemicroflow)
 	{
 		getMendixObject().setValue(context, MemberNames.OnReceiveMicroflow.toString(), onreceivemicroflow);
+	}
+
+	/**
+	 * Set value of ValueType
+	 * @param valuetype
+	 */
+	public final kafka.proxies.ValueType getValueType()
+	{
+		return getValueType(getContext());
+	}
+
+	/**
+	 * @param context
+	 * @return value of ValueType
+	 */
+	public final kafka.proxies.ValueType getValueType(com.mendix.systemwideinterfaces.core.IContext context)
+	{
+		Object obj = getMendixObject().getValue(context, MemberNames.ValueType.toString());
+		if (obj == null) {
+			return null;
+		}
+		return kafka.proxies.ValueType.valueOf((java.lang.String) obj);
+	}
+
+	/**
+	 * Set value of ValueType
+	 * @param valuetype
+	 */
+	public final void setValueType(kafka.proxies.ValueType valuetype)
+	{
+		setValueType(getContext(), valuetype);
+	}
+
+	/**
+	 * Set value of ValueType
+	 * @param context
+	 * @param valuetype
+	 */
+	public final void setValueType(com.mendix.systemwideinterfaces.core.IContext context, kafka.proxies.ValueType valuetype)
+	{
+		if (valuetype != null) {
+			getMendixObject().setValue(context, MemberNames.ValueType.toString(), valuetype.toString());
+		} else {
+			getMendixObject().setValue(context, MemberNames.ValueType.toString(), null);
+		}
 	}
 
 	/**
